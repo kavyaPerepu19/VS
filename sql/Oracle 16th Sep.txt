@@ -1,0 +1,35 @@
+Limitations of File Systems:
+1) Data Redundancy(Repetition or duplication of data)
+2) Redundancy leads to data inconsistency : Any changes made in one file will not reflect others
+3) Limited data sharing
+4) Limited data security
+5) Application program overhead
+6) Lack of isolation
+7) Lack of atomicity
+....
+======================================
+Solution : DBMS(DataBase Management Systems)
+=> A database is an organized collection of interrelated data. The database and the application programs that access the database is DBMS.
+
+Advantages of DBMS:
+1) Minimal Data Redundancy
+2) Minimal application program overhead
+3) Extensive data sharing
+4) Effective data(Privileges) and transaction(commit and rollback) security
+5) Effective backup and recovery facilities
+6) ACID(Atomicity-Consistency-Isolation-Durability) properties
+===================================
+Transaction 
+== Repeated business operations
+Eg: Bank => deposits, payments, DDs....
+    Supermarket => sales, purchases, invoices, inventory...
+
+Query
+== Request submitted to a database
+
+Constraint
+== Business rule that every database user must follow
+Eg:
+== Min. Balance must be Rs. 1000
+== Max. withdraw limit is Rs. 40000
+===================================

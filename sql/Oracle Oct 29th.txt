@@ -1,0 +1,98 @@
+Creating a trigger that records the user operations performed on ACCOUNT table.
+
+=> Create a table as below:
+SQL > CREATE TABLE ACCOUNT_LOG(
+ USERNAME VARCHAR2(10),
+ OP_TYPE VARCHAR2(10),
+ OP_DATE DATE,
+ OP_TIME CHAR(10),
+ OP_ACCNO NUMBER(3),
+ OP_AMT NUMBER(7,2));
+
+=> Create a trigger that records user transactions on ACCOUNT table as below:
+SQL > CREATE OR REPLACE TRIGGER LOG_TRIGGER
+ AFTER INSERT OR DELETE OR UPDATE ON ACCOUNT
+ FOR EACH ROW
+BEGIN
+ IF INSERTING THEN
+  INSERT INTO ACCOUNT_LOG VALUES(USER,'ACC.OPEN',SYSDATE,TO_CHAR(SYSDATE,'HH24:MI:SS'), :NEW.ACC_ID,:NEW.BALANCE);
+ END IF;
+ IF DELETING THEN
+  INSERT INTO ACCOUNT_LOG VALUES(USER,'ACC.CLOSE',SYSDATE,TO_CHAR(SYSDATE,'HH24:MI:SS'), :OLD.ACC_ID,:OLD.BALANCE);
+ END IF;
+ IF UPDATING THEN
+  IF :NEW.BALANCE > :OLD.BALANCE THEN
+    INSERT INTO ACCOUNT_LOG VALUES(USER,'DEPOSIT',SYSDATE, TO_CHAR(SYSDATE,'HH24:MI:SS'), :OLD.ACC_ID, :NEW.BALANCE - :OLD.BALANCE);
+  ELSE
+    INSERT INTO ACCOUNT_LOG VALUES(USER,'WITHDRAWAL',SYSDATE, TO_CHAR(SYSDATE,'HH24:MI:SS'), :OLD.ACC_ID, :OLD.BALANCE - :NEW.BALANCE);
+  END IF;
+ END IF;
+END;
+/
+
+=> Perform the following operations on ACCOUNT table:
+SQL > INSERT INTO ACCOUNT VALUES(211,'SB',23500,105);
+SQL > INSERT INTO ACCOUNT VALUES(212,'CR',35000,104);
+SQL > UPDATE ACCOUNT SET BALANCE = BALANCE + 5000 WHERE ACC_ID = 211;
+SQL > UPDATE ACCOUNT SET BALANCE = BALANCE - 5000 WHERE ACC_ID = 212;
+SQL > DELETE FROM ACCOUNT WHERE ACC_ID > 210;
+
+=> To check whether the above transactions are recorded or not, type:
+SQL > SELECT * FROM ACCOUNT_LOG;
+=================================================
+Arrays in PL/SQL : 
+
+1) Declare an array as a new datatype:
+Syntax:
+ DECLARE TYPE arr-type IS VARRAY(size) OF datatype;
+Eg:
+ DECLARE TYPE INT_ARRAY IS VARRAY(5) OF INTEGER;
+
+2) Declare a variable of array type:
+Syntax:
+ var-name  arr-type;
+Eg:
+ A INT_ARRAY;
+
+3) Assign values for the array variable:
+ var-name := arr-type(list-of-values);
+Eg:
+ A := INT_ARRAY(10,20,30,40,50);
+
+NOTE : In PL/SQL, if array size is 'n' indexes are created from 1 to 'n'
+Eg:
+-- Implementing arrays
+DECLARE
+ TYPE INT_ARRAY IS VARRAY(5) OF INTEGER;
+ A INT_ARRAY;
+ I NUMBER;
+BEGIN
+ A := INT_ARRAY(10,20,30,40,50);
+ DBMS_OUTPUT.PUT_LINE('The Array Elements are : ');
+ FOR I IN 1..5 LOOP
+  DBMS_OUTPUT.PUT_LINE(A(I));
+ END LOOP;
+END;
+/
+--------------------------------------------
+-- Program to print the sum of array elements
+DECLARE
+ TYPE INT_ARRAY IS VARRAY(5) OF INTEGER;
+ A INT_ARRAY;
+ I NUMBER;
+ ARR_SUM NUMBER := 0;
+BEGIN
+ A := INT_ARRAY(10,20,30,40,50);
+ DBMS_OUTPUT.PUT_LINE('The Array Elements are : ');
+ FOR I IN 1..5 LOOP
+  DBMS_OUTPUT.PUT_LINE(A(I));
+  ARR_SUM := ARR_SUM + A(I);
+ END LOOP;
+ DBMS_OUTPUT.PUT_LINE('Sum of Array Elements : ' || ARR_SUM);
+END;
+/
+
+=> Write a program to print the biggest and smallest elements of an array
+=> Write a program to arrange the array elements in sorted order
+=> Write a program to search for a given item in an array
+----------------------------------------------

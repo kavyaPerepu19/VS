@@ -1,0 +1,35 @@
+Atomicity   => If possible, complete the transaction; Otherwise, do nothing
+Consistency => The database must be in a consistent(correct) state throughout the transactions
+Isolation   => Concurrent transactions must run in isolation
+Durability  => Persistent storage of data
+---------------------------------------
+Constructing a database:
+Data Models:
+== E-R Model
+== Relational Model
+--------------------------------
+E-R(Entity-Relationship) Model:
+== Pictorial representation of a database
+== The diagram is called ER Diagram or ERD
+
+Entity: Real-world objects in a business context. An enity can be:
+== Person => EMPLOYEE, CUSTOMER
+== Place => BRANCH
+== Thing => ACCOUNT, LOAN, DEPOSIT
+== Activity => TRANSACTION
+
+Attributes: Characteristics of an entity
+== EMPLOYEE => Emp_id, Emp_name, salary.....
+== BRANCH  => Br_Name, Br_code, location, phone, ....
+== ACCOUNT => Acc_Id, Acc_type, balance, .....
+== TRANSACTION => Tr_Id, Tr_type, Tr_date, amount, ....
+
+Eg(See Figure):
+============================================
+Steps for constructing an E-R Diagram:
+1) Identity entities
+2) Identify attributes for each entity
+3) Identify Primary Key
+4) Establish relationships between entities,if possible
+5) Identity the types of relationships between entities
+6) Identify modality. Modality specifies whether relationship between two entities is mandatory(1) or optional(0)

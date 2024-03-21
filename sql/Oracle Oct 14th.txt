@@ -1,0 +1,172 @@
+CASE statement : This statement is similar to "switch" statement in C Language.
+Syntax:
+CASE choice-expression
+ WHEN option-1 THEN
+  ====
+ WHEN option-2 THEN
+  ====
+ ....
+ WHEN option-n THEN
+  ====
+ ELSE
+  -- Default statements
+ END CASE;
+Eg:
+-- Program on CASE statement
+DECLARE
+ TODAY NUMBER := &TODAY;
+BEGIN
+ CASE TODAY
+  WHEN 1 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Sunday');
+  WHEN 2 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Monday');
+  WHEN 3 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Tuesday');
+  WHEN 4 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Wednesday');
+  WHEN 5 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Thursday');
+  WHEN 6 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Friday');
+  WHEN 7 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Saturday');
+  ELSE
+   DBMS_OUTPUT.PUT_LINE('Enter input between 1 and 7');
+ END CASE;
+END;
+/
+----------------------------------------
+-- Program on CASE statement
+DECLARE
+ TODAY NUMBER;
+BEGIN
+ TODAY := TO_CHAR(SYSDATE,'D');
+ CASE TODAY
+  WHEN 1 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Sunday');
+  WHEN 2 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Monday');
+  WHEN 3 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Tuesday');
+  WHEN 4 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Wednesday');
+  WHEN 5 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Thursday');
+  WHEN 6 THEN
+   DBMS_OUTPUT.PUT_LINE('Today is Friday');
+  ELSE
+   DBMS_OUTPUT.PUT_LINE('Today is Saturday');
+ END CASE;
+END;
+/
+-------------------------------------
+GOTO statement : GOTO is an unconditional branching statement
+Syntax:
+====			
+====			
+GOTO label-name;	
+====			
+====			
+<<label-name>>		
+   ====			
+   ====			
+Eg:
+-- Program on GOTO statement
+BEGIN
+ DBMS_OUTPUT.PUT_LINE('Hello! Where are you?');
+ GOTO APEC;
+ DBMS_OUTPUT.PUT_LINE('I am not here'); -- Unreachable code
+ <<APEC>>
+   DBMS_OUTPUT.PUT_LINE('I am at APEC');
+   DBMS_OUTPUT.PUT_LINE('I am in Oracle class');
+END;
+/
+----------------------------------
+Loops in PL/SQL : 
+=> Oracle provides 3 types of loops : LOOP,WHILE and FOR
+
+1) LOOP statement:
+Syntax:
+LOOP
+  ====
+  ====
+  EXIT WHEN condition;
+  ====
+  ====
+END LOOP;
+
+=> In this syntax, the statements are executed when the condition is FALSE. The loop is terminated when the condition is TRUE.
+Eg:
+-- Program on LOOP statement			 I
+DECLARE						---
+ I NUMBER;				 	 1 = 5(f)   Welcome to APEC
+BEGIN						 2 = 5(f)   Welcome to APEC
+ I := 1;					 3 = 5(f)   Welcome to APEC
+ LOOP						 4 = 5(f)   Welcome to APEC
+   DBMS_OUTPUT.PUT_LINE('Welcome to APEC');	 5 = 5(t)   Welcome to APEC
+   EXIT WHEN I = 5;
+   I := I + 1;
+ END LOOP;
+END;
+/
+--------------------------------------
+2) WHILE loop:
+Syntax:
+ WHILE condition LOOP
+   ====
+   ====
+ END LOOP;
+
+=> In this loop, if the condition is True, the loop is entered. If the condition is False, the loop will terminate
+Eg:
+-- Program on WHILE statement		    I
+DECLARE					   ---
+ I NUMBER;				    1 <= 5(T)	Welcome to APEC
+BEGIN					    2 <= 5(T)	Welcome to APEC
+ I := 1;				    3 <= 5(T)	Welcome to APEC
+ WHILE I <= 5  LOOP			    4 <= 5(T)	Welcome to APEC
+   DBMS_OUTPUT.PUT_LINE('Welcome to APEC'); 5 <= 5(T)	Welcome to APEC
+   I := I + 1;				    6 <= 5(F) 
+ END LOOP;
+END;
+/
+==========================================
+3) FOR loop : 
+Syntax:
+ FOR ctr-var in [REVERSE] start-value .. end-value LOOP
+   ====
+   ====
+ END LOOP;
+
+Eg:
+-- Program on FOR statement
+DECLARE
+ I NUMBER;
+BEGIN
+ FOR I IN 1..5 LOOP
+  DBMS_OUTPUT.PUT_LINE('Welcome to APEC');
+ END LOOP;
+END;
+/
+----------------------------------------------
+-- Program on FOR statement
+DECLARE
+ I NUMBER;
+BEGIN
+ DBMS_OUTPUT.PUT_LINE('For Loop');
+ FOR I IN 1..5 LOOP
+  DBMS_OUTPUT.PUT_LINE(I);
+ END LOOP;
+
+ DBMS_OUTPUT.PUT_LINE('For Loop with REVERSE option');
+ FOR I IN REVERSE 1..5 LOOP
+  DBMS_OUTPUT.PUT_LINE(I);
+ END LOOP;
+END;
+/
+-----------------------------------------
+=> Write a program to print the multiplication table of a given number
+=> Write a program to print all even numbers upto given number
+=> Write a program to print factorial of a given number
+=> Write a program to check whether the given number is Prime or not

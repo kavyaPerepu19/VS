@@ -1,0 +1,77 @@
+3) Date and time datatypes:
+
+a) DATE : 
+=> Date format in Oracle is : dd-mon-yy Eg: 21-Sep-22
+
+b) DATETIME, TIMESTAMP => Used to store both date and time values
+
+4) LOBs(Large Objects) : 4 GB to 1 TB
+=> BLOB(Binary Large OBject) => Images and other multimedia files
+=> CLOB(Character Large OBject) => text files
+-----------------------------------------------
+Connecting the SQL *plus:
+=> Goto Start Menu => Type "Run SQL Command Line"
+=> Connect to your account as below:
+SQL > connect
+username : hr
+password : manager
+
+SQL > connect hr/manager
+-----------------------------------------------
+Built in users : SYSTEM, SYS, HR => manager
+-----------------------------------------------
+Creating a new user in Oracle:
+== Start SQL *plus
+== Connect to the user SYSTEM  as below:
+SQL > conn system/manager
+
+== Create a new account as below:
+Syntax:
+SQL > CREATE USER username IDENTIFIED BY password;
+Eg:
+SQL > create user apec identified by datadot;
+
+== Acquire permissions to connect and access the database:
+Syntax:
+SQL > GRANT CONNECT,RESOURCE TO username;
+Eg:
+SQL > GRANT CONNECT,RESOURCE TO APEC;
+
+=> If we want to connect as an admin user, type:
+SQL > GRANT CONNECT,DBA TO APEC;
+
+=> Now, you can start connecting to your account and create maintain database
+
+=> To see the list of users available, type the following command in the SYSTEM user:
+SQL > SELECT USERNAME FROM DBA_USERS;
+
+=> To drop an existing user, type the following command in the SYSTEM user:
+Syntax:
+SQL > DROP USER username;
+Eg:
+SQL > DROP USER APEC;
+
+=> To konw the user under whom we are currently logged in:
+SQL > SELECT USER FROM DUAL;
+----------------------------------
+Table Structure:
+--------------------------------------------
+ Table-name    column-name   datatype(size)
+--------------------------------------------
+ CUSTOMER       CUST_ID	    NUMBER(3) => 101-199
+		CUST_NAME   VARCHAR2(10)
+		CUST_CITY   VARCHAR2(10)
+------------------------------------------
+ ACCOUNT	ACC_ID	    NUMBER(3) => 201-299
+		ACC_TYPE    CHAR(2)   => SB/CR/RD
+		BALANCE	    NUMBER(7,2) => MIN. 1000
+------------------------------------------
+ LOAN		LOAN_ID	    NUMBER(3) => 301-399
+		LOAN_TYPE   CHAR(2)   => ED/AG/PR
+		LOAN_AMT    NUMBER(7,2)
+------------------------------------------
+CREATE TABLE command : This DDL command is used to create a new table. Its syntax is:
+SQL > CREATE TABLE table-name(
+ column-name datatype(size),
+ column-name datatype(size),
+ ...);

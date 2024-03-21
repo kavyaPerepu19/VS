@@ -1,0 +1,100 @@
+CREATE TABLE command : This DDL command is used to create a new table. Its syntax is:
+SQL > CREATE TABLE table-name(
+ column-name datatype(size),
+ column-name datatype(size),
+ ...);
+Eg:
+SQL > CREATE TABLE CUSTOMER(
+ CUST_ID NUMBER(3),
+ CUST_NAME VARCHAR2(10),
+ CUST_CITY VARCHAR2(10));
+
+SQL > CREATE TABLE ACCOUNT(
+    ACC_ID NUMBER(3),
+    ACC_TYPE CHAR(2),
+    BALANCE NUMBER(7,2));
+
+SQL > CREATE TABLE LOAN(
+    LOAN_ID NUMBER(3),
+    LOAN_TYPE CHAR(2),
+    LOAN_AMT NUMBER(7,2));
+
+=> To see the list of tables available under the current user, type:
+SQL > SELECT * FROM TAB;
+---------------------------------------
+DESC[RIBE] command : This DDL command is used to display the structure of an existing table. Its syntax is:
+SQL > DESC table-name;
+Eg:
+SQL > DESC CUSTOMER;
+SQL > DESC ACCOUNT;
+SQL > DESC LOAN;
+---------------------------------------
+INSERT command : This DML command is used to add a new record into an existing table. This command has several forms.
+
+Syntax of format-1:
+SQL > INSERT INTO table-name(column-list) VALUES(list-of-values);
+Eg:
+SQL > INSERT INTO CUSTOMER(CUST_ID,CUST_NAME,CUST_CITY) VALUES(101,'SURESH', 'HYDERABAD');
+SQL > INSERT INTO CUSTOMER(CUST_ID,CUST_NAME,CUST_CITY) VALUES(102,'RAMESH', 'AMARAVATHI');
+...
+
+SQL > INSERT INTO ACCOUNT(ACC_ID,ACC_TYPE,BALANCE) VALUES(201,'SB',25000.00);
+SQL > INSERT INTO ACCOUNT(ACC_ID,ACC_TYPE,BALANCE) VALUES(202,'CR',35000.00);
+...
+
+SQL > INSERT INTO LOAN(LOAN_ID,LOAN_TYPE,LOAN_AMT) VALUES(301,'ED',75000.00);
+SQL > INSERT INTO LOAN(LOAN_ID,LOAN_TYPE,LOAN_AMT) VALUES(302,'AG',65000.00);
+...
+
+=> To see the records of a given table, type:
+SQL > SELECT * FROM table-name;
+Eg:
+SQL > SELECT * FROM CUSTOMER;
+SQL > SELECT * FROM ACCOUNT;
+SQL > SELECT * FROM LOAN;
+
+NOTE : This format is used when we want to insert values for selected columns of a table or values for columns in random order.
+Eg:
+SQL > INSERT INTO CUSTOMER(CUST_ID,CUST_CITY) VALUES(103,'NELLORE');
+SQL > INSERT INTO CUSTOMER(CUST_CITY,CUST_NAME,CUST_ID) VALUES('AMARAVATHI', 'KARTHIK',104);
+SQL > SELECT * FROM CUSTOMER;
+------------------------------------
+Syntax of format-2:
+SQL > INSERT INTO table-name VALUES(list-of-values);
+=> This format is used when we want to insert values for all columns of the table and in the same order they exist.
+Eg:
+SQL > INSERT INTO CUSTOMER VALUES(105,'ABHINAV','NELLORE');
+SQL > INSERT INTO CUSTOMER VALUES(106,'SASANK','CHENNAI');
+...
+
+SQL > INSERT INTO ACCOUNT VALUES(203,'RD',30000.00);
+SQL > INSERT INTO ACCOUNT VALUES(204,'SB',33000.00);
+...
+
+SQL > INSERT INTO LOAN VALUES(303,'PR',50000.00);
+SQL > INSERT INTO LOAN VALUES(304,'ED',80000.00);
+...
+SQL > SELECT * FROM CUSTOMER;
+SQL > SELECT * FROM ACCOUNT;
+SQL > SELECT * FROM LOAN;
+------------------------------------
+Syntax-3:
+SQL > INSERT INTO table-name VALUES(&column-1,&column-2,....);
+=> Here, '&' is an input operator
+Eg:
+SQL > INSERT INTO CUSTOMER VALUES(&CUST_ID,'&CUST_NAME','&CUST_CITY');
+SQL > /
+...
+
+SQL > INSERT INTO ACCOUNT VALUES(&ACC_ID,'&ACC_TYPE',&BALANCE);
+SQL > /
+...
+
+SQL > INSERT INTO LOAN VALUES(&LOAN_ID,'&LOAN_TYPE',&LOAN_AMT);
+SQL > /
+...
+
+SQL > SELECT * FROM CUSTOMER;
+SQL > SELECT * FROM ACCOUNT;
+SQL > SELECT * FROM LOAN;
+------------------------------------

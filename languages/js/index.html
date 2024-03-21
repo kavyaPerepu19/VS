@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudinary Image Upload</title>
+</head>
+<body>
+
+<input type="file" id="fileInput" />
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.29.0/js/vendor/jquery.ui.widget.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.29.0/js/jquery.fileupload.min.js"></script>
+<script src="https://cdn.rawgit.com/cloudinary/cloudinary_js/master/js/jquery.cloudinary.js"></script>
+
+<script>
+    // Replace these values with your Cloudinary configuration
+    const cloudinaryConfig = {
+        cloud_name: 'dlbukoh4z',
+        api_key: '964977839113751',
+        api_secret: '9l_Nkgo4Rfl8MygZDIySXBTUC9U'
+    };
+
+    // Set up Cloudinary with your configuration
+    $.cloudinary.config(cloudinaryConfig);
+
+    // Handle file upload
+    $('#fileInput').fileupload({
+        dataType: 'json',
+        done: function (e, data) {
+            // Get the public URL of the uploaded image
+            const imageUrl = $.cloudinary.url(data.result.public_id, { secure: true });
+
+            console.log("Image uploaded to Cloudinary. URL: ${imageUrl}");
+        }
+    });
+</script>
+
+</body>
+</html>

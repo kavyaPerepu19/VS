@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Even Numbers Generator</title>
+</head>
+<body align="center">
+    <h1>Generate Even Numbers</h1>
+    <p>Enter an integer and press Enter:</p>
+    <input type="number" id="numberInput" oninput="displayEvenNumbers()">
+    <div id="evenNumbers"></div>
+
+    <script>
+        function displayEvenNumbers() {
+            let numberInput = document.getElementById('numberInput');
+            const inputValue = parseInt(numberInput.value);
+
+            document.write("EVEN NUMBERS <br>")
+                for (let i = 2; i <= inputValue; i += 2) {
+                    document.write(i+"  ")
+                }
+                document.write("<br>")
+                document.write("ODD NUMBERS <br>")
+                for (let i = 2; i <= inputValue; i += 2) {
+                    document.write(i-1+"  ")
+                }
+        }
+    </script>
+</body>
+</html>

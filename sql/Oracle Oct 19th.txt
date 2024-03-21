@@ -1,0 +1,141 @@
+-- Cursor program to update the records of a table
+-- Implementing UPDATE ACCOUNT SET BALANCE = BALANCE + 1000 WHERE ACC_TYPE='SB'
+DECLARE
+ BAL ACCOUNT.BALANCE%TYPE;
+ CNT NUMBER := 0;
+ CURSOR C1 IS SELECT BALANCE FROM ACCOUNT WHERE ACC_TYPE='SB' FOR UPDATE OF BALANCE;
+BEGIN
+ OPEN C1;
+ LOOP
+  FETCH C1 INTO BAL;
+  EXIT WHEN C1%NOTFOUND;
+  UPDATE ACCOUNT SET BALANCE = BALANCE + 1000 WHERE CURRENT OF C1;
+  CNT := CNT + 1;
+ END LOOP;
+ CLOSE C1;
+ DBMS_OUTPUT.PUT_LINE(CNT || ' Rows Updated');
+END;
+/
+---------------------------------
+INSERT:
+Already Exists??
+== yes => Error
+== no  => Insert
+
+UPDATE/DELETE:
+Already Exists??
+== yes => Update/Delete
+== no  => Error
+---------------------------------
+-- Cursor program to insert a record into CUSTOMER table
+-- Implementing INSERT INTO CUSTOMER VALUES(....)
+DECLARE
+ CUSTNO CUSTOMER.CUST_ID%TYPE := &CUSTNO;
+ CNAME CUSTOMER.CUST_NAME%TYPE := '&CNAME';
+ CITY CUSTOMER.CUST_CITY%TYPE := '&CITY';
+ CUST_REC CUSTOMER%ROWTYPE;
+ CURSOR C1 IS SELECT * FROM CUSTOMER WHERE CUST_ID = CUSTNO;
+BEGIN
+ OPEN C1;
+ FETCH C1 INTO CUST_REC;
+ IF C1%FOUND THEN
+  DBMS_OUTPUT.PUT_LINE('Error in Inserting the record or record already exists');
+ ELSE
+  INSERT INTO CUSTOMER VALUES(CUSTNO,CNAME,CITY);
+  DBMS_OUTPUT.PUT_LINE('Record Inserted Successfully');
+ END IF;
+ CLOSE C1;
+END;
+/
+-----------------------------------------
+-- Retrieving data based on Primary Key
+-- Implementing SELECT BALANCE FROM ACCOUNT WHERE ACC_ID = XXXX
+-- Implementing Exception Handling on cursors
+DECLARE
+ ACCNO NUMBER := &ACCNO;
+ BAL NUMBER;
+ CURSOR C1 IS SELECT BALANCE FROM ACCOUNT WHERE ACC_ID = ACCNO;
+BEGIN
+ open c1;
+ FETCH C1 INTO BAL;
+ IF C1%NOTFOUND THEN
+  DBMS_OUTPUT.PUT_LINE('Invalid Account Number. Unable to Fetch.');
+ ELSE
+  DBMS_OUTPUT.PUT_LINE('Your Existing Balance is ' ||  BAL);
+ END IF;
+ CLOSE C1;
+ EXCEPTION
+ WHEN INVALID_CURSOR THEN
+  RAISE_APPLICATION_ERROR(-20011,'Cursor is not Open');
+ WHEN CURSOR_ALREADY_OPEN THEN
+  RAISE_APPLICATION_ERROR(-20022,'Cursor reopened without closing');
+END;
+/
+----------------------------------
+1) Creating a cursor program that demonstrates withdrawal operation. The program must satisfy the following criteria:
+-- Max. Withdrawal amount is Rs.10000
+-- Account Number must exist
+-- Min. Balance must be maintained
+
+2) Creating a cursor program that demonstrates fund transfer operation. The program must satisfy the following criteria:
+-- Max. transfer amount is Rs.25000
+-- Source and target account numbers must exist
+-- Min. Balance must be maintained in source account
+
+3) Create a cursor that demonstrate loan instalment payment transaction. The program must satisfy the following criteria:
+-- Loan ID must be valid
+-- Instalment amount must not exceed loan due
+-- If loan due and instalment amount are same,close the loan
+========================================================
+Procedures and Functions in PL/SQL :  A Procedure or a function is a self-contained block of statements designed to perform a specific task. 
+
+-> The basic difference between a procedure and a function is that a procedure cannot have an explicit return value while function must have a return value. 
+
+-> The syntax of creating a procedure is :
+SQL > CREATE OR REPLACE PROCEDURE procedure-name(parameters,if any) IS
+ data declarations;
+BEGIN
+ PL/SQL Block;
+END;
+/
+
+-> Once a procedure is created,it can be invoked from another procedure or PL/SQL block, or can be invoked from command line using EXECUTE command as below :
+SQL > EXEC[UTE] procedure-name(parameters);
+
+-> A Procedure can be dropped as below:
+SQL > DROP PROCEDURE procedure-name;
+
+-> The syntax of creating a function is :
+SQL > CREATE OR REPLACE FUNCTION function-name(parameters,if any) RETURN datatype IS
+ data declarations;
+BEGIN
+ PL/SQL Block
+END;
+/
+
+-> Once a function is created,it can be invoked from another procedure or PL/SQL block, or can be invoked from command line using SELECT command as below:
+SQL > SELECT function-name(parameters) FROM DUAL;
+
+-> A function can be dropped as below:
+SQL > DROP FUNCTION function-name;
+===========================================================
+Implementing Procedures:
+
+1) Create a Procedure as below:
+-- Sample Procedure in PL/SQL
+CREATE OR REPLACE PROCEDURE WELCOME IS
+BEGIN
+ DBMS_OUTPUT.PUT_LINE('Welcome to PL/SQL');
+END;
+/
+
+2) Invoke the procedure from command-line as below:
+SQL > EXEC WELCOME
+
+3) Invoking the procedure from another PL/SQL Block:
+-- Invokine Procedure welcome()
+BEGIN
+ WELCOME();
+END;
+/
+-------------------------------------

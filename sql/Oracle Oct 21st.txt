@@ -1,0 +1,170 @@
+Eg-3: Create and implement a function that accepts account number as parameter and returns the existing balance
+
+=> Create a function as below:
+Create or replace function showBalance(accno number) return number is
+ balance number;
+ cursor c1 is select balance from account where acc_id = accno;
+begin
+ open c1;
+ fetch c1 into balance;
+ if c1%notfound then
+  raise_application_error(-20022,'Invalid Account Number. Unable to Display');
+ end if;
+ close c1;
+ return balance;
+end;
+/
+---------------------------------
+=> Invoke the above function as below:
+
+declare
+ accno number := &accno;
+ balance number;
+begin
+ balance := showBalance(accno);
+ dbms_output.put_line('Your Existing Balance is : ' || balance);
+end;
+/
+
+=> save and run
+
+=> Invoke the function from command line:
+SQL > SELECT showBalance(201) from dual;
+SQL > SELECT showBalance(301) from dual;
+-------------------------------------
+Create a function that returns total balances available under the account table i.e implement : SELECT SUM(BALANCE) FROM ACCOUNT
+
+=> Create a function as below:
+create or replace function getTotalBalance return number is
+ balance number;
+ tot_bal number := 0;
+ cursor c1 is select balance from account;
+begin
+ open c1;
+ loop
+  fetch c1 into balance;
+  exit when c1%notfound;
+  tot_bal := tot_bal + balance;
+ end loop;
+ close c1;
+ return tot_bal;
+end;
+/
+----------------------------------
+=> Invoke the above function as below:
+SQL > SELECT GETTOTALBALANCE() FROM DUAL;
+-----------------------------------
+=> Modify the above function as below:
+
+create or replace function getTotalBalance(accType account.acc_type%type) return number is
+ balance number;
+ tot_bal number := 0;
+ cursor c1 is select balance from account where acc_type=accType;
+begin
+ open c1;
+ loop
+  fetch c1 into balance;
+  exit when c1%notfound;
+  tot_bal := tot_bal + balance;
+ end loop;
+ close c1;
+ return tot_bal;
+end;
+/
+--------------------------------------
+=> Invoke the above function as below:
+SQL > SELECT GETTOTALBALANCE('SB') FROM DUAL;
+SQL > SELECT GETTOTALBALANCE('CR') FROM DUAL;
+SQL > SELECT GETTOTALBALANCE('RD') FROM DUAL;
+--------------------------------------
+			Packages in ORACLE
+
+-> A Package is defined as a collection of procedures and functions. Packages can be classified into Built-In packages(Eg:DBMS_OUTPUT) and User-defined packages.
+
+Steps for creating a user-defined package :
+
+1) Declare the package specification : The first step in creating a package is to declare its specification or prototype. Its syntax is :
+
+SQL > CREATE [OR REPLACE] PACKAGE package-name IS
+  [ global-data declarations ]
+  [ Procedure declarations ]
+  [ Function declarations ]
+END;
+/
+
+2) Defining the package body : Once a package is declared, the members of it are defined(implemented). Its syntax is :
+
+SQL > CREATE [OR REPLACE] PACKAGE BODY package-name IS
+ [ global-data declarations ]
+ [ Procedure definitions ]
+ [ Function definitions ];
+END;
+/
+
+3) Once the package body is defined, the members of it can be invoked using the following syntax :
+  package-name . package-member
+Eg: DBMS_OUTPUT.PUT_LINE()
+------------------------------------------------------------
+Eg-1:
+=> Declare a package as below:
+create or replace package mypack is
+ procedure addition(a number,b number);
+ procedure subtract(a number,b number);
+ function product(a number,b number) return number;
+ function division(a number,b number) return number;
+end;
+/
+---------------------------------
+=> Defining the package body:
+create or replace package body mypack is
+ procedure addition(a number,b number) is
+  c number;
+ begin
+  c := a + b;
+  dbms_output.put_line('Sum is : ' || c);
+ end;
+ procedure subtract(a number,b number) is
+  c number;
+ begin
+  c := a - b;
+  dbms_output.put_line('Difference is : ' || c);
+ end;
+ function product(a number,b number) return number is
+  c number;
+ begin
+  c := a * b;
+  return c;
+ end;
+ function division(a number,b number) return number is
+  c number;
+ begin
+  c := a / b;
+  return c;
+ end;
+end;
+/
+------------------------------------------
+=> Invoking the package members:
+
+declare
+ a number := &a;
+ b number := &b;
+begin
+ mypack.addition(a,b);
+ mypack.subtract(a,b);
+ dbms_output.put_line('Product is : ' || mypack.product(a,b));
+ dbms_output.put_line('Division is : ' || mypack.division(a,b));
+end;
+/
+--------------------------------------------
+=> Create and implement a package as below:
+SQL > CREATE OR REPLACE PACKAGE ACC_PACK IS
+ PROCEDURE DEPOSIT(ACCNO NUMBER,DEP_AMT NUMBER);
+ PROCEDURE WITHDRAW(ACCNO NUMBER,W_AMT NUMBER);
+ FUNCTION SHOWBALANCE(ACCNO NUMBER) RETURN NUMBER;
+ PROCEDURE FUND_TRANSFER(SRC_ACCNO NUMBER,TRG_ACCNO NUMBER,TR_AMT NUMBER);
+END;
+/
+
+Triggers:
+Arrays:

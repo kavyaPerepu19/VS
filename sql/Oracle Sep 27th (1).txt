@@ -1,0 +1,108 @@
+[NOT] BETWEEN : This operator is used to search a value from a given range of values. If NOT keyword is used, the values that are not in the range will be selected.
+Eg:
+=> List all customers whose IDs are in the range 103 and 108
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID BETWEEN 103 AND 108;
+(OR)
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID>=103 AND CUST_ID<=108;
+
+=> List all accounts whose balances are not in the range 30000 and 50000.
+SQL > SELECT * FROM ACCOUNT WHERE BALANCE NOT BETWEEN 30000 AND 50000;
+(OR)
+SQL > SELECT * FROM ACCOUNT WHERE BALANCE<30000 OR BALANCE>50000;
+---------------------------------------
+[NOT] IN : This operator is used to search a value from a given set of values. If NOT keyword is used, the values that are not in the set will be selected.
+Eg:
+=> List all customers who are either from HYDERABAD OR CHENNAI OR TIRUPATHI
+SQL > SELECT * FROM CUSTOMER
+WHERE CUST_CITY IN('HYDERABAD','CHENNAI','TIRUPATHI');
+(OR)
+SQL > SELECT * FROM CUSTOMER
+WHERE CUST_CITY='HYDERABAD' OR CUST_CITY='CHENNAI' OR CUST_CITY='TIRUPATHI';
+
+SQL > SELECT * FROM ACCOUNT WHERE ACC_TYPE NOT IN('SB','RD');
+(OR)
+SQL > SELECT * FROM ACCOUNT WHERE ACC_TYPE<>'SB' AND ACC_TYPE<>'RD';
+-----------------------------------------
+IS [NOT] NULL : This operator is used to search NULL values
+Eg:
+SQL > SELECT * FROM CUSTOMER WHERE CUST_NAME IS NULL;
+SQL > SELECT * FROM ACCOUNT WHERE BALANCE IS NOT NULL;
+-----------------------------------------
+[NOT] LIKE : This operator is used for pattern matching i.e it is used to search a string or a date values with a given pattern.
+=> This operator uses the following wild-card characters:
+% => to match 0 or more characters
+_ => to match exactly one character
+Eg:
+=> List all customers whose names:
+a) starts with letter 'R'
+SQL > SELECT * FROM CUSTOMER WHERE CUST_NAME LIKE 'R%';
+SQL > SELECT * FROM CUSTOMER WHERE CUST_NAME NOT LIKE 'R%';
+
+b) Ends with letter 'R'.
+SQL > SELECT * FROM CUSTOMER WHERE CUST_NAME LIKE '%R';
+
+c) Contains 'R' as a letter
+SQL > SELECT * FROM CUSTOMER WHERE CUST_NAME LIKE '%R%';
+
+d) Contains 'A' as second letter
+SQL > SELECT * FROM CUSTOMER WHERE CUST_NAME LIKE '_A%';
+
+e) Contains 'R' as second character from the right
+SQL > SELECT * FROM CUSTOMER WHERE CUST_NAME LIKE '%R_';
+
+F) Starts with 'R' and ends with 'H'.
+SQL > SELECT * FROM CUSTOMER WHERE CUST_NAME LIKE 'R%H';
+
+g) Contains exactly 4 letters
+SQL > SELECT * FROM CUSTOMER WHERE CUST_NAME LIKE '____';
+SQL > SELECT * FROM CUSTOMER WHERE LENGTH(CUST_NAME) = 4;
+--------------------------------
+Implementing LIKE operator on Date values.
+1) Create a table STUDENT as below:
+SQL > CREATE TABLE STUDENT(
+ ST_ID NUMBER(3),
+ ST_NAME CHAR(10),
+ COURSE CHAR(10),
+ JOIN_DATE DATE);
+
+2) Insert records into the table as below:
+SQL > INSERT INTO STUDENT VALUES(101,'SURESH','PHP','12-JAN-18');
+SQL > INSERT INTO STUDENT VALUES(102,'RAMESH','.NET','12-FEB-18');
+SQL > INSERT INTO STUDENT VALUES(103,'NARESH','JAVA','1-JAN-18');
+SQL > INSERT INTO STUDENT VALUES(104,'MAHESH','PHP','15-JAN-18');
+SQL > INSERT INTO STUDENT VALUES(105,'GANESH','ORACLE','2-FEB-18');
+SQL > INSERT INTO STUDENT VALUES(106,'MAHESH','C++','12-DEC-17');
+SQL > INSERT INTO STUDENT VALUES(107,'RAVI','PHP','15-JAN-18');
+SQL > INSERT INTO STUDENT VALUES(108,'SASI','ORACLE','2-DEC-17');
+SQL > INSERT INTO STUDENT VALUES(109,'SIRI','C++','12-DEC-17');
+
+SQL > SELECT * FROM STUDENT;
+
+3) Genarate the following queries :
+List all students who :
+a) joined in 2017.
+SQL > SELECT * FROM STUDENT WHERE JOIN_DATE LIKE '%17';
+
+b) joined on 2nd February
+SQL > SELECT * FROM STUDENT WHERE JOIN_DATE LIKE '02-FEB%';
+
+c) joined ORACLE in December
+SQL > SELECT * FROM STUDENT 
+WHERE COURSE='ORACLE' AND JOIN_DATE LIKE '%DEC%';
+
+d) has not joined in 2018
+SQL > SELECT * FROM STUDENT WHERE JOIN_DATE NOT LIKE '%18';
+
+e) has joined PHP but not in 15th JAN
+SQL > SELECT * FROM STUDENT 
+WHERE COURSE='PHP' AND JOIN_DATE NOT LIKE '15-JAN%';
+==========================================================
+ORDER BY clause : This clause is used to fecth data in sorted order. The default sorted order is Ascending.
+Syntax:
+ORDER BY column-name [ASC|DESC];
+Eg:
+=> List the details of all customers in the alphabetical order of their names
+SQL > SELECT * FROM CUSTOMER ORDER BY CUST_NAME;
+
+=> List all accounts in the decreasing order of their balances.
+SQL > SELECT * FROM ACCOUNT ORDER BY BALANCE DESC;

@@ -1,0 +1,154 @@
+Procedure to insert a record into CUSTOMER table:
+
+1) Create a procedure as below:
+
+create or replace procedure insert_cust(custno customer.cust_id%type, cname customer.cust_name%type,city customer.cust_city%type) is
+ cust_rec customer%rowtype;
+ cursor c1 is select * from customer where cust_id = custno;
+begin
+ open c1;
+ fetch c1 into cust_rec;
+ if c1%notfound then
+  insert into customer values(custno,cname,city);
+  dbms_output.put_line('Record Inserted Successfully');
+ else
+  raise_application_error(-20111,'Error in Inserting the record or record already exists');
+ end if;
+ close c1;
+end;
+/
+---------------------------------------
+2) Invoke the above procedure as below:
+
+declare
+ custno customer.cust_id%type := &custno;
+ cname customer.cust_name%type := '&cname';
+ city customer.cust_city%type := '&city';
+begin
+ insert_cust(custno,cname,city);
+end;
+/
+----------------------------------------
+Eg-3: Procedure to print no. of customers from the CUSTOMER table. 
+Implementing: SELECT COUNT(*) FROM CUSTOMER;
+
+CREATE OR REPLACE PROCEDURE COUNT_CUST IS
+ CNT NUMBER := 0;
+ CUST_REC CUSTOMER%ROWTYPE;
+ CURSOR C1 IS SELECT * FROM CUSTOMER;
+BEGIN
+ OPEN C1;
+ LOOP
+  FETCH C1 INTO CUST_REC;
+  EXIT WHEN C1%NOTFOUND;
+  CNT := CNT + 1;
+ END LOOP;
+ CLOSE C1;
+ DBMS_OUTPUT.PUT_LINE('No. of Rows Selected : ' || CNT);
+END;
+/
+
+=> Run the procedure as below:
+SQL > EXEC COUNT_CUST;
+--------------------------------------
+=> Modify the above Procedure as below:
+
+CREATE OR REPLACE PROCEDURE COUNT_CUST(CITY CUSTOMER.CUST_CITY%TYPE) IS
+ CNT NUMBER := 0;
+ CUST_REC CUSTOMER%ROWTYPE;
+ CURSOR C1 IS SELECT * FROM CUSTOMER WHERE CUST_CITY=CITY;
+BEGIN
+ OPEN C1;
+ LOOP
+  FETCH C1 INTO CUST_REC;
+  EXIT WHEN C1%NOTFOUND;
+  CNT := CNT + 1;
+ END LOOP;
+ CLOSE C1;
+ DBMS_OUTPUT.PUT_LINE('No. of customers from the given city : ' || CNT);
+END;
+/
+------------------------------------
+=> Invoke the above procedure as below:
+DECLARE
+ CITY CUSTOMER.CUST_CITY%TYPE := '&CITY';
+BEGIN
+ COUNT_CUST(CITY);
+END;
+/
+
+=> save and run
+--------------------------------------
+Eg-4 : Procedure to demonstrate Fund Transfer operation.
+
+=> Create a Procedure as below:
+create or replace procedure fund_transfer(src_accno number,trg_accno number,tr_amt number) is
+ bal number;
+ cursor c1 is select * from account where acc_id = src_accno;
+ cursor c2 is select * from account where acc_id = trg_accno;
+ acc_rec account%rowtype;
+begin
+ open c1;
+ open c2;
+ if tr_amt > 25000 then
+  raise_application_error(-20011,'Max. Transfer Limit(Rs. 25000) Exceeded');
+ end if;
+ fetch c1 into acc_rec;
+ if c1%notfound then
+  raise_application_error(-20012,'Invalid Source Account Number');
+ end if;
+ bal := acc_rec.balance;
+ if bal - tr_amt < 1000 then
+   raise_application_error(-20013,'Insufficient funds in source account number');
+ end if;
+ fetch c2 into acc_rec;
+ if c2%notfound then
+  raise_application_error(-20014,'Invalid Target Account Number');
+ end if;
+ update account set balance = balance - tr_amt where acc_id = src_accno;
+ update account set balance = balance + tr_amt where acc_id = trg_accno;
+ close c1;
+ close c2;
+ dbms_output.put_line('Fund Transfer Successful');
+end;
+/
+-----------------------------
+=> Invoke the above procedure as below:
+
+declare
+ src_accno number := &src_accno;
+ trg_accno number := &trg_accno;
+ tr_amt number := &tr_amt;
+begin
+ fund_transfer(src_accno,trg_accno,tr_amt);
+end;
+/
+=====================================
+Implementing functions:
+Eg-1:
+=> Create a function as below:
+create or replace function addition(x number,y number) return number is
+ z number;
+begin
+ z := x + y;
+ return z;
+end;
+/
+--------------------------------
+=> Invoke the above function as below:
+
+declare
+ a number := &a;
+ b number := &b;
+ c number;
+begin
+ c := addition(a,b);
+ dbms_output.put_line('Sum is : ' || C);
+end;
+/
+
+=> save and run
+-----------------------------------
+=> Design and implement a function that takes a number as parameter and returns its factorial
+
+=> Design and implement a function that takes account number and returns its existing balance if valid. Display an error if the account number is invalid

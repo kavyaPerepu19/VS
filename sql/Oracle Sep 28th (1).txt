@@ -1,0 +1,97 @@
+Built In functions in Oracle:
+
+1) Group or aggregate functions
+2) Mathematical functions
+3) String functions
+4) Date functions
+5) Data Conversion functions
+6) Miscellaneous functions
+
+1) Group or Aggregate functions : These functions are used to generate an aggregate value from a set of values. They include:
+
+=> COUNT(*) : This function returns no. of rows under the given table.
+Eg:
+SQL > SELECT COUNT(*) FROM CUSTOMER;
+SQL > SELECT COUNT(*) AS NO_OF_CUSTOMERS FROM CUSTOMER;
+SQL > SELECT COUNT(*) NO_OF_CUSTOMERS FROM CUSTOMER;
+SQL > SELECT COUNT(*) AS NO_OF_CUSTOMERS FROM CUSTOMER
+ WHERE CUST_CITY='HYDERABAD';
+SQL > SELECT COUNT(*) AS NO_OF_SB_ACCOUNTS FROM ACCOUNT WHERE ACC_TYPE='SB';
+SQL > SELECT COUNT(*) AS NO_OF_LOANS FROM LOAN WHERE LOAN_AMT >= 75000;
+
+=> COUNT(column-name) : This function returns the no. of entries under the given columns
+Eg:
+SQL > SELECT COUNT(CUST_CITY) AS NO_OF_CITIES FROM CUSTOMER;
+SQL > SELECT COUNT(DISTINCT CUST_CITY) AS NO_OF_CITIES FROM CUSTOMER;
+SQL > SELECT COUNT(DISTINCT ACC_TYPE) AS NO_OF_ACC_TYPES FROM ACCOUNT;
+SQL > SELECT COUNT(DISTINCT LOAN_TYPE) AS NO_OF_LOAN_TYPES FROM LOAN;
+
+=> SUM(column-name) : This function returns the total value under the given column
+Eg:
+SQL > SELECT SUM(BALANCE) AS TOTAL_BALANCES FROM ACCOUNT;
+SQL > SELECT SUM(BALANCE) AS TOTAL_BALANCES FROM ACCOUNT WHERE ACC_TYPE='SB';
+SQL > SELECT SUM(LOAN_AMT) FROM LOAN WHERE LOAN_TYPE='AG';
+SQL > SELECT SUM(LOAN_AMT) TOTAL_LOAN_DUES FROM LOAN;
+
+=> AVG(column-name) : This function returns the average value from a given column
+Eg:
+SQL > SELECT avg(BALANCE) FROM ACCOUNT;
+SQL > SELECT avg(BALANCE) FROM ACCOUNT WHERE ACC_TYPE='SB';
+SQL > SELECT AVG(LOAN_AMT) FROM LOAN WHERE LOAN_TYPE='AG';
+SQL > SELECT AVG(LOAN_AMT) FROM LOAN;
+
+=> MAX(column-name) : This function returns the biggest value under the given column
+SQL > SELECT MAX(BALANCE) FROM ACCOUNT;
+SQL > SELECT MAX(BALANCE) FROM ACCOUNT WHERE ACC_TYPE='CR';
+SQL > SELECT MAX(LOAN_AMT) FROM LOAN;
+SQL > SELECT MAX(LOAN_AMT) FROM LOAN WHERE LOAN_TYPE='ED';
+
+=> MIN(column-name) : This function returns the least value under the given column
+SQL > SELECT MIN(BALANCE) FROM ACCOUNT;
+SQL > SELECT MIN(BALANCE) FROM ACCOUNT WHERE ACC_TYPE='CR';
+SQL > SELECT MIN(LOAN_AMT) FROM LOAN;
+SQL > SELECT MIN(LOAN_AMT) FROM LOAN WHERE LOAN_TYPE='ED';
+
+SQL > SELECT COUNT(*) AS NO_OF_ACCOUNTS,SUM(BALANCE),AVG(BALANCE),MIN(BALANCE), MAX(BALANCE)
+ FROM ACCOUNT;
+SQL > SELECT COUNT(*) AS NO_OF_ACCOUNTS,SUM(BALANCE),AVG(BALANCE),MIN(BALANCE), MAX(BALANCE)
+ FROM ACCOUNT WHERE ACC_TYPE='SB';
+SQL > SELECT COUNT(*), SUM(LOAN_AMT), AVG(LOAN_AMT), MIN(LOAN_AMT), MAX(LOAN_AMT)
+ FROM LOAN;
+SQL> SELECT COUNT(*), SUM(LOAN_AMT), AVG(LOAN_AMT), MIN(LOAN_AMT), MAX(LOAN_AMT)
+     FROM LOAN WHERE LOAN_TYPE='AG';
+------------------------------------------------
+GROUP BY clause : This clause divides the column-values into groups and generates an aggregate value from each group. If this selection requires any condition, HAVING clause is used.
+Eg:
+=> List city-wise no. of customers
+SQL > SELECT CUST_CITY,COUNT(*) AS NO_OF_CUSTOMERS
+FROM CUSTOMER
+GROUP BY CUST_CITY;
+
+=> List account-wise total balances
+SQL > SELECT ACC_TYPE,SUM(BALANCE) TOTAL_BALANCES FROM ACCOUNT
+GROUP BY ACC_TYPE;
+
+=> List loan-wise highest and least amount dues
+SQL > SELECT LOAN_TYPE,MAX(LOAN_AMT),MIN(LOAN_AMT)
+ FROM LOAN
+ GROUP BY LOAN_TYPE;
+
+=> List city-wise no. of customers. Display only those cities whose count is Min.3
+SQL > SELECT CUST_CITY,COUNT(*) AS NO_OF_CUSTOMERS
+FROM CUSTOMER
+GROUP BY CUST_CITY
+HAVING COUNT(*) >= 3;
+
+=> List account-wise total balances. Display only those account types whose average balance is Min. 30000
+SQL > SELECT ACC_TYPE,SUM(BALANCE) FROM ACCOUNT
+GROUP BY ACC_TYPE
+HAVING AVG(BALANCE) >= 30000;
+
+SQL > SELECT ACC_TYPE,COUNT(*),SUM(BALANCE),AVG(BALANCE),MIN(BALANCE),MAX(BALANCE)
+FROM ACCOUNT
+GROUP BY ACC_TYPE;
+
+SQL > SELECT LOAN_TYPE,COUNT(*),SUM(LOAN_AMT),AVG(LOAN_AMT),MIN(LOAN_AMT), MAX(LOAN_AMT)
+FROM LOAN
+GROUP BY LOAN_TYPE;

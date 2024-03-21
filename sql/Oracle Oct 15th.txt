@@ -1,0 +1,115 @@
+-- Program to print all even numbers upto given number
+DECLARE
+ N NUMBER := &N;
+ I NUMBER;
+BEGIN
+ DBMS_OUTPUT.PUT_LINE('Even Numbers upto given number are : ');
+ FOR I IN 1..N LOOP
+  IF MOD(I,2) = 0 THEN
+   DBMS_OUTPUT.PUT_LINE(I);
+  END IF;
+ END LOOP;
+END;
+/
+-----------------------------------------
+-- Program to check whether the given number is Prime or not
+DECLARE
+ N NUMBER := &N;
+ I NUMBER;
+ NO_FACTORS NUMBER := 0;
+BEGIN
+ FOR I IN 1..N LOOP
+  IF MOD(N,I) = 0 THEN
+   NO_FACTORS := NO_FACTORS + 1;
+  END IF;
+ END LOOP;
+ IF NO_FACTORS = 2 THEN
+  DBMS_OUTPUT.PUT_LINE('The Entered Number is a Prime');
+ ELSE
+  DBMS_OUTPUT.PUT_LINE('The Entered Number is not a Prime');
+ END IF;
+END;
+/
+---------------------------------------
+Raising user-defined error messages:
+=> RAISE_APPLICATION_ERROR() : This function in Oracle is used to raise user-defined error messages. 
+Syntax:
+ RAISE_APPLICTION_ERROR(error-id,error-msg)
+=> Here, the error number can be any value in between -20000 to -20999
+Eg:
+-- Program to generate Student Result
+declare
+ m1 number := &m1;
+ m2 number := &m2;
+ m3 number := &m3;
+ total number;
+ average number;
+begin
+ if m1<0 or m1>100 or m2<0 or m2>100 or m3<0 or m3>100 then
+  raise_application_error(-20011,'Marks of any Subject must be in between 0 and 100');
+ end if;
+ total := m1 + m2 + m3;
+ average := total / 3;
+ dbms_output.put_line('Total Marks = ' || total);
+ dbms_output.put_line('Average Marks = ' || average);
+ if m1>=35 and m2>=35 and m3>=35 then
+  dbms_output.put_line('Congrats! You are Passed');
+ else
+  dbms_output.put_line('Sorry! You are Failed');
+ end if;
+end;
+/
+-----------------------------------------
+-- Program to generate Electricity Bill
+declare
+ pres number := &pres;
+ prev number := &prev;
+ no_units number;
+ unit_price  number;
+ bill_amt number;
+begin
+ if pres <= prev then
+  raise_application_error(-20099,'Present Reading must be Greater than Previous');
+ end if;
+ no_units := pres - prev;
+ if no_units < 100 then
+  unit_price := 2.15;
+ elsif no_units < 200 then
+  unit_price := 3.25;
+ else
+  unit_price := 3.75;
+ end if;
+ bill_amt := no_units * unit_price;
+ dbms_output.put_line('No. of units consumed : ' || no_units);
+ dbms_output.put_line('Price(Per Unit) : ' || unit_price);
+ dbms_output.put_line('Bill Amount to be Paid : ' || bill_amt);
+end;
+/
+---------------------------------------
+Built-In Excepions :
+-> ZERO_DIVIDE : Raised when a number is divided with zero
+-> VALUE_ERROR : Invalid type of value assigned to a variable.
+-> INVALID_NUMBER : Raised when the number format is wrong
+-> INVALID_CURSOR : Raised when the cursor is accessed without open
+-> CURSOR_ALREADY_OPEN : Raised when the cursor is reopened without close
+-> TOO_MANY_ROWS : Raised when multiple rows are assigned to a cursor
+-> NO_DATA_FOUND : Raised when no record assigned to a cursor
+....
+=========================================================
+Handling Exceptions in a PL/SQL Program
+SQL > DECLARE
+ data declarations;
+BEGIN
+ PL/SQL Block;
+ EXCEPTION
+  WHEN exception-type-1 THEN
+   -- statements
+  WHEN exception-type-2 THEN
+   -- statements
+ ...
+  WHEN exception-type-n THEN
+   -- statements
+  WHEN OTHERS
+   -- statements
+END;
+/

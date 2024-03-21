@@ -1,0 +1,127 @@
+-- Program-1 on exception handling
+declare
+ a number := &a;
+ b number := &b;
+ c number;
+begin
+ c := a / b;
+ dbms_output.put_line('Division = ' || c);
+ exception
+  when zero_divide then
+   raise_application_error(-20099,'Division by Zero Error');
+end;
+/
+--------------------------------
+-- Program-2 on exception handling
+declare
+ a number;
+begin
+ a := 10;
+ dbms_output.put_line('a = ' || a);
+ a := 10.2345;
+ dbms_output.put_line('a = ' || a);
+ a := 'Welcome to APEC';
+ dbms_output.put_line('a = ' || a);
+ exception
+ when value_error then
+  dbms_output.put_line('Assigned value must be a number');
+end;
+/
+-------------------------------------
+-- Program-3 on exception handling
+declare
+ custno number(3) := &custno;
+ cname varchar2(10) := '&cname';
+ city varchar2(10) := '&city';
+begin
+ insert into customer values(custno,cname,city);
+ dbms_output.put_line('One Row Inserted');
+ exception
+  when dup_val_on_index then
+   dbms_output.put_line('Error in Inserting the record or Record Already Exists');
+end;
+/
+-------------------------------------
+-- Program to handle user-defined exceptions
+-- Program to generate electricity bill
+
+declare
+ pres number := &pres;
+ prev number := &prev;
+ no_units number;
+ unit_price number;
+ bill_amt number;
+ invalid_reading exception;
+begin
+ if pres <= prev then
+   raise invalid_reading;
+ end if;
+ no_units := pres - prev;
+ if no_units < 100 then
+  unit_price := 2.15;
+ elsif no_units < 200 then
+  unit_price := 2.65;
+ else
+  unit_price := 3.25;
+ end if;
+ bill_amt := no_units * unit_price;
+ dbms_output.put_line('Present Reading : ' || pres);
+ dbms_output.put_line('Previous Reading : ' || prev);
+ dbms_output.put_line('No. of units consumed : ' || no_units);
+ dbms_output.put_line('Price(Per Unit) : ' || unit_price);
+ dbms_output.put_line('Bill Amount to be Paid : ' || bill_amt);
+ exception
+  when invalid_reading then
+   raise_application_error(-20022,'Present Reading must be Greater than Previous');
+end;
+/
+-----------------------------------------
+-- Program to handle user-defined exceptions
+-- Program to generate student result
+
+declare
+ m1 number := &m1;
+ m2 number := &m2;
+ m3 number := &m3;
+ total number;
+ average number;
+ invalid_marks exception;
+begin
+ if m1<0 or m1>100 or m2<0 or m2>100 or m3<0 or m3>100 then
+   raise invalid_marks;
+ end if;
+ total := m1 + m2 + m3;
+ average := total / 3;
+ dbms_output.put_line('Total Marks = ' || total);
+ dbms_output.put_line('Average Marks = ' || average);
+ if m1>=35 and m2>=35 and m3>=35 then
+  dbms_output.put_line('Congrats! You are Passed');
+ else
+  dbms_output.put_line('Sorry! You are Failed');
+ end if;
+ exception
+ when invalid_marks then
+  raise_application_error(-20099,'Marks of any Subject must be in between 0 and 100');
+end;
+/
+----------------------------------------
+-- Program-3 to handle user-defined exceptions
+
+declare
+ custno number(3) := &custno;
+ cname varchar2(10) := '&cname';
+ city varchar2(10) := '&city';
+ invalid_id exception;
+begin
+ if custno not between 101 and 199 then
+  raise invalid_id;
+ end if;
+ insert into customer values(custno,cname,city);
+ dbms_output.put_line('One Row Inserted');
+ exception
+  when dup_val_on_index then
+   dbms_output.put_line('Error in Inserting the record or Record Already Exists');
+  when invalid_id then
+   dbms_output.put_line('Customer ID Must be in between 101 and 199');
+end;
+/

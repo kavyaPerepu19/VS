@@ -1,0 +1,165 @@
+PL/SQL :
+== Stands for Procedural Language for SQL
+== Procedural database language
+== Database operations are performed using a set of programs
+-----------------------------------
+Structure of a PL/SQL Program:
+
+-- Skeleton structure of a PL/SQL Program
+DECLARE
+  -- Variable declarations
+BEGIN
+  PL/SQL Block
+  EXCEPTION
+   -- Exception Handling statements
+END;
+/
+----------------------------------
+Variable declarations:
+Syntax:
+ var-name datatype(size);
+Eg:
+ ROLLNO NUMBER(3);
+ ST_NAME VARCHAR2(10);
+ COURSE VARCHAR2(10);
+----------------------------------
+Initializing variables:
+Syntax:
+ var-name datatype(size) := value;
+Eg:
+ ROLLNO NUMBER := 101;
+ ST_NAME VARCHAR2(10) := 'SURESH';
+ COURSE VARCHAR2(10) := 'JAVA';
+----------------------------------
+Accepting input from console :
+Syntax:
+ var-name := &var-name;
+Eg:
+ ROLLNO := &ROLLNO;
+ ST_NAME := '&ST_NAME';
+ COURSE := '&COURSE';
+----------------------------------
+Displaying output on console :
+=> DBMS_OUTPUT.PUT_LINE()
+Eg:
+ DBMS_OUTPUT.PUT_LINE('Welcome to PL/SQL');
+----------------------------------
+Packages in Oracle : Collection of built-in procedures and functions
+----------------------------------
+Comments in Oracle:
+-- This is a single-line comment
+
+/* This is a
+ multi-line comment */
+-------------------------------------
+=> Before creating and running PL/SQL Programs, type the following commands at the SQL console
+SQL > SET SERVEROUTPUT ON
+SQL > SET VERIFY OFF
+-------------------------------------
+Procedure for creating and running a PL/SQL Program(.sql) in Oracle:
+
+1) Start SQL *Plus and connect to your account
+2) Create a new program by typing the following command:
+SQL > ED filename
+Eg:
+SQL > ED demo
+
+== Write the following code:
+-- This is a sample PL/SQL Program
+BEGIN
+ DBMS_OUTPUT.PUT_LINE('Welcome to PL/SQL');
+END;
+/
+
+3) Save the file and close the program
+4) Run the program as:
+SQL > @filename
+Eg:
+SQL > @demo
+------------------------------------
+Eg-2: Program to perform arithmetic operations on two numbers
+
+SQL > ED arithmetic
+
+-- Performing arithmetic operations on two numbers
+DECLARE
+ A NUMBER;
+ B NUMBER;
+ C NUMBER;
+BEGIN
+ A := 100;
+ B := 40;
+ C := A + B;
+ DBMS_OUTPUT.PUT_LINE('Sum is : ' || C);
+ C := A - B;
+ DBMS_OUTPUT.PUT_LINE('Difference is : ' || C);
+ C := A * B;
+ DBMS_OUTPUT.PUT_LINE('Product is : ' || C);
+ C := A / B;
+ DBMS_OUTPUT.PUT_LINE('Division is : ' || C);
+END;
+/
+
+SQL > @arithmetic
+=========================================
+-- Performing arithmetic operations on two numbers
+DECLARE
+ A NUMBER := 100;
+ B NUMBER := 40;
+ C NUMBER;
+BEGIN
+ C := A + B;
+ DBMS_OUTPUT.PUT_LINE('Sum is : ' || C);
+ C := A - B;
+ DBMS_OUTPUT.PUT_LINE('Difference is : ' || C);
+ C := A * B;
+ DBMS_OUTPUT.PUT_LINE('Product is : ' || C);
+ C := A / B;
+ DBMS_OUTPUT.PUT_LINE('Division is : ' || C);
+END;
+/
+=========================================
+-- Program to read two numbers and perform arithmetic operations on them
+DECLARE
+ A NUMBER;
+ B NUMBER;
+ C NUMBER;
+BEGIN
+ A := &A;
+ B := &B;
+ C := A + B;
+ DBMS_OUTPUT.PUT_LINE('Sum is : ' || C);
+ C := A - B;
+ DBMS_OUTPUT.PUT_LINE('Difference is : ' || C);
+ C := A * B;
+ DBMS_OUTPUT.PUT_LINE('Product is : ' || C);
+ C := A / B;
+ DBMS_OUTPUT.PUT_LINE('Division is : ' || C);
+END;
+/
+========================================
+-- Program to read two numbers and perform arithmetic operations on them
+DECLARE
+ A NUMBER := &A;
+ B NUMBER := &B;
+ C NUMBER;
+BEGIN
+ C := A + B;
+ DBMS_OUTPUT.PUT_LINE('Sum is : ' || C);
+ C := A - B;
+ DBMS_OUTPUT.PUT_LINE('Difference is : ' || C);
+ C := A * B;
+ DBMS_OUTPUT.PUT_LINE('Product is : ' || C);
+ C := A / B;
+ DBMS_OUTPUT.PUT_LINE('Division is : ' || C);
+END;
+/
+==========================================
+=> Write a program to read marks of 5 subjects, calculate and print their total and average
+
+=> Write a program to generate Electricity Bill. The Procedure is:
+== Read present and previous reading values
+== Calculate no. of units as present reading - previous
+== Assume unit price as 3.25
+== Calculate bill amount as no. of units * unit price
+== Print all values

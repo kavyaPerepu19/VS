@@ -1,0 +1,94 @@
+Processing data from multiple tables:
+1) Set operators
+2) Sub-Queries
+3) Joins
+
+1) Set Operators : These operators are used to extract data from two or more sets of values. They include:
+== UNION [ALL]  : Either from Set A or Set B or both. ALL includes duplicates
+== INTERSECT : Values common in Set A and in Set B
+== MINUS : Values only from Set A,but not in Set B
+
+=> List all customers who have either account or loan or both
+SQL > SELECT CUST_ID FROM ACCOUNT
+ UNION
+SELECT CUST_ID FROM LOAN;
+
+SQL > SELECT CUST_ID FROM ACCOUNT
+ UNION ALL
+SELECT CUST_ID FROM LOAN;
+
+=> List all customers who have both account and loan
+SQL > SELECT CUST_ID FROM ACCOUNT
+ INTERSECT
+SELECT CUST_ID FROM LOAN;
+
+=> List all customers who have only account but not loan
+SQL > SELECT CUST_ID FROM ACCOUNT
+ MINUS
+SELECT CUST_ID FROM LOAN;
+
+=> List all customers who have only loan but not account
+SQL > SELECT CUST_ID FROM LOAN
+ MINUS
+SELECT CUST_ID FROM ACCOUNT;
+--------------------------------------
+2) Sub-Queries : Defining a query inside another is called a Sub-Query or a Nested Query. It is of the form Q1(Q2) where Q1 is the Outer Query and Q2 is the Inner Query.
+Eg:
+=> List all customers who have accounts
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID IN(
+ SELECT CUST_ID FROM ACCOUNT);
+
+=> List all customers who do not have accounts
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID NOT IN(
+ SELECT CUST_ID FROM ACCOUNT);
+
+=> List all customers who have loans
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID IN(
+ SELECT CUST_ID FROM LOAN);
+
+=> List all customers who do not have loans
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID NOT IN(
+ SELECT CUST_ID FROM LOAN);
+
+=> List all customers who have either account or loan or both
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID IN(
+ SELECT CUST_ID FROM ACCOUNT
+ UNION
+SELECT CUST_ID FROM LOAN);
+
+=> List all customers who have neither account nor loan
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID NOT IN(
+ SELECT CUST_ID FROM ACCOUNT
+ UNION
+SELECT CUST_ID FROM LOAN);
+
+=> List all customers who have both account and loan
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID IN(
+ SELECT CUST_ID FROM ACCOUNT
+ INTERSECT
+SELECT CUST_ID FROM LOAN);
+
+=> List all customers who have only account but not loan
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID IN(
+ SELECT CUST_ID FROM ACCOUNT
+ MINUS
+SELECT CUST_ID FROM LOAN);
+
+=> List all customers who have only loan but not account
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID IN(
+ SELECT CUST_ID FROM LOAN
+ MINUS
+SELECT CUST_ID FROM ACCOUNT);
+
+=> List all customers who have either account or loan but not both
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID IN(
+ (SELECT CUST_ID FROM ACCOUNT UNION SELECT CUST_ID FROM LOAN)
+ MINUS
+ (SELECT CUST_ID FROM ACCOUNT INTERSECT SELECT CUST_ID FROM LOAN));
+
+(OR)
+
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID IN(
+ (SELECT CUST_ID FROM ACCOUNT MINUS SELECT CUST_ID FROM LOAN)
+ UNION
+ (SELECT CUST_ID FROM LOAN MINUS SELECT CUST_ID FROM ACCOUNT));

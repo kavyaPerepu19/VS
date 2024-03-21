@@ -1,0 +1,72 @@
+Implementing self-join:
+
+=> Create a table as below:
+SQL > CREATE TABLE EMP(
+ EMP_ID NUMBER(3),
+ EMP_NAME CHAR(10),
+ BASIC NUMBER(7,2),
+ MGR_ID NUMBER(3));
+
+=> Insert records into the table as below:
+SQL > INSERT INTO EMP VALUES(101,'SURESH',35000.00,NULL);
+SQL > INSERT INTO EMP VALUES(102,'RAMESH',33000.00,NULL);
+SQL > INSERT INTO EMP VALUES(103,'MAHESH',15000.00,101);
+SQL > INSERT INTO EMP VALUES(104,'NARESH',17000.00,102);
+SQL > SELECT * FROM EMP;
+
+=> Display the details of employees who are managers
+SQL > SELECT E.EMP_ID AS MANAGER_ID,E.EMP_NAME AS MGR_NAME
+ FROM EMP E,EMP M
+ WHERE E.EMP_ID = M.MGR_ID;
+---------------------------------------
+Outer Join : While combining the columns of two tables, the rows of one table may not have matching values with the other. Then, those unmatched rows are filled with NULL values. This is called Outer Join.
+
+=> The three implementations of Outer Join are : LEFT OUTER JOIN, RIGHT OUTER JOIN and FULL OUTER JOIN.
+
+LEFT OUTER JOIN : Here, while combining the columns of two tables, if the rows of left table do not match matching values in the right table, they are filled with NULL values. 
+
+RIGHT OUTER JOIN : Here, while combining the columns of two tables, if the rows of right table do not match matching values in the left table, they are filled with NULL values. 
+
+FULL OUTER JOIN : Combining LEFT and RIGHT OUTER JOIN techniques will result in FULL OUTER JOIN.
+Eg:
+=> Create tables as below:
+SQL > CREATE TABLE COURSE(
+ COURSE_ID NUMBER(2),
+ TITLE CHAR(10),
+ DURATION NUMBER(3),
+ FEES NUMBER(5));
+
+SQL > CREATE TABLE STUDENT(
+ ROLLNO NUMBER(3),
+ ST_NAME CHAR(10),
+ COURSE_ID NUMBER(2));
+
+=> Insert records into the above tables as below:
+SQL > INSERT INTO COURSE VALUES(10,'JAVA',90,15000);
+SQL > INSERT INTO COURSE VALUES(20,'ORACLE',30,5000);
+SQL > INSERT INTO COURSE VALUES(30,'php',60,10000);
+SQL > INSERT INTO COURSE VALUES(40,'REACT',45,10000);
+
+SQL > INSERT INTO STUDENT VALUES(101,'SURESH',15);
+SQL > INSERT INTO STUDENT VALUES(102,'RAMESH',20);
+SQL > INSERT INTO STUDENT VALUES(103,'MAHESH',30);
+SQL > INSERT INTO STUDENT VALUES(104,'GANESH',45);
+
+SQL > SELECT * FROM COURSE;
+SQL > SELECT * FROM STUDENT;
+
+=> Implementing LEFT OUTER JOIN :
+SQL > SELECT * FROM 
+ COURSE LEFT OUTER JOIN STUDENT
+ ON COURSE.COURSE_ID = STUDENT.COURSE_ID;
+
+=> Implementing RIGHT OUTER JOIN :
+SQL > SELECT * FROM 
+ COURSE RIGHT OUTER JOIN STUDENT
+ ON COURSE.COURSE_ID = STUDENT.COURSE_ID;
+
+=> Implementing FULL OUTER JOIN :
+SQL > SELECT * FROM 
+ COURSE FULL OUTER JOIN STUDENT
+ ON COURSE.COURSE_ID = STUDENT.COURSE_ID;
+--------------------------------------------------

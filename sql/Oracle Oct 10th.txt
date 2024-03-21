@@ -1,0 +1,63 @@
+Implementing REVOKE command:
+
+=> Connect to USER2. Revoke SELECT privilege on APEC.LOAN from USER3.
+SQL > REVOKE SELECT ON APEC.LOAN FROM USER3;
+
+=> Connect to USER3 and perform the following operation:
+SQL > SELECT * FROM APEC.LOAN;
+
+=> Connect to your account. Revoke all privileges on LOAN from USER2.
+SQL > REVOKE ALL ON LOAN FROM USER2;
+
+=> Connect to USER2 and perform the following operations.
+SQL > SELECT * FROM APEC.LOAN;
+
+=> Connect to your account. Revoke INSERT,UPDATE privileges on ACCOUNT table from USER1
+SQL > REVOKE INSERT,UPDATE ON ACCOUNT FROM USER1;
+
+=> Connect to USER1 and perform the following operations:
+SQL > INSERT INTO APEC.ACCOUNT VALUES(211,'CR',33000,105);
+SQL > UPDATE APEC.ACCOUNT SET BALANCE = BALANCE + 5000 WHERE ACC_ID = 211;
+---------------------------------
+Creating tables from existing tables:
+Syntax:
+=> Create a new table containg savings account data
+SQL > CREATE TABLE table-name AS
+ SELECT statement;
+Eg:
+SQL > CREATE TABLE SB_ACCOUNT AS
+ SELECT * FROM ACCOUNT WHERE ACC_TYPE='SB';
+
+=> Create a new table from ACCOUNT table but with no records
+Eg:
+SQL > CREATE TABLE CR_ACCOUNT AS
+ SELECT * FROM ACCOUNT WHERE 1 = 2;
+------------------------------------
+Copying data from one table to another:
+Syntax:
+SQL > INSERT INTO table-name
+ SELECT statement;
+Eg:
+SQL > INSERT INTO CR_ACCOUNT
+ SELECT * FROM ACCOUNT WHERE ACC_TYPE='CR';
+--------------------------------------
+INSERT INTO command:
+Syntax:
+SQL > INSERT ALL
+ INTO table-name VALUES(...)
+ INTO table-name VALUES(...)
+ ...
+ SELECT * FROM DUAL;
+Eg:
+SQL > INSERT ALL
+ INTO CUSTOMER VALUES(121,'SASI','HYD')
+ INTO CUSTOMER VALUES(122,'GIRI','CHN')
+ INTO CUSTOMER VALUES(123,'HARI','BNG')
+ SELECT * FROM DUAL;
+
+SQL > INSERT ALL
+ INTO CUSTOMER VALUES(131,'SASI','HYD')
+ INTO ACCOUNT VALUES(222,'SB',12000,101)
+ INTO LOAN VALUES(323,'ED',60000,101)
+ SELECT * FROM DUAL;
+-----------------------------------------

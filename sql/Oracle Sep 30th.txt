@@ -1,0 +1,56 @@
+4) Date functions : 
+
+=> SYSDATE : This function returns the current system date
+SQL > SELECT SYSDATE FROM DUAL;
+
+=> MONTHS_BETWEEN(d1,d2) : This function returns the no. of months passed in between the two given dates
+SQL > SELECT MONTHS_BETWEEN(SYSDATE,'30-SEP-21') FROM DUAL;
+SQL > SELECT MONTHS_BETWEEN(SYSDATE,'30-SEP-23') FROM DUAL;
+
+=> ADD_MONTHS(d,n) : This function adds the given no. of months to the specified date
+SQL > SELECT ADD_MONTHS(SYSDATE,10) FROM DUAL;
+SQL > SELECT ADD_MONTHS(SYSDATE,-10) FROM DUAL;
+
+=> LAST_DAY(d) : This function returns the date of last day of the given month in the specified date
+SQL > SELECT LAST_DAY(SYSDATE) FROM DUAL;
+
+=> NEXT_DAY(d,week_name) : This function returns the date of first occurence of the weekname from the given date
+SQL > SELECT NEXT_DAY(SYSDATE,'SUNDAY') FROM DUAL;
+SQL > SELECT NEXT_DAY('14-JAN-1993','SUNDAY') FROM DUAL;
+----------------------------------------
+5) Data Conversion functions : These functions are used to convert a value of one datatype into another.
+
+=> TO_NUMBER() : This function converts the given string into its equalent number
+SQL > SELECT TO_NUMBER('100'),TO_NUMBER('12.25') FROM DUAL;
+
+=> TO_DATE() : This function converts the given string into its equalent date
+SQL > SELECT TO_DATE('12-DEC-2021') FROM DUAL;
+
+=> TO_CHAR() : This function converts the given number or date into its equalent string
+SQL > SELECT TO_CHAR(100),TO_CHAR(SYSDATE) FROM DUAL;
+
+SQL > SELECT TO_CHAR(SYSDATE) FROM DUAL;
+SQL > SELECT TO_CHAR(SYSDATE,'D') FROM DUAL;
+SQL > SELECT TO_CHAR(SYSDATE,'DAY') FROM DUAL;
+SQL > SELECT TO_CHAR(SYSDATE,'DD-MM-YYYY') FROM DUAL;
+SQL > SELECT TO_CHAR(SYSDATE,'DD-MON-YYYY') FROM DUAL;
+SQL > SELECT TO_CHAR(SYSDATE,'DD-MONTH-YYYY') FROM DUAL;
+SQL > SELECT TO_CHAR(SYSDATE,'HH:MI:SS AM') FROM DUAL;
+SQL > SELECT TO_CHAR(SYSDATE,'HH24:MI:SS AM') FROM DUAL;
+SQL > SELECT TO_CHAR(SYSDATE,'DAY MONTH,DD-YYYY HH:MI:SS AM') FROM DUAL;
+-------------------------------------
+6) Miscellaneous functions :
+=> USER : This function returns the current username.
+SQL > SELECT USER FROM DUAL;
+
+=> ASCII(ch) : This function returns the ASCII value of given character
+SQL > SELECT ASCII('A'),ASCII('a') FROM DUAL;
+
+=> CHR(n) : This function returns the ASCII character of a given value
+SQL > SELECT CHR(65),CHR(97) FROM DUAL;
+
+=> GREATEST() : This function returns the biggest value among the given set of values
+=> LEAST() : This function returns the smallest value among the given set of values
+Eg:
+SQL > SELECT GREATEST(30,50,10,20,40), LEAST(30,50,10,20,40) FROM DUAL;
+---------------------------------------

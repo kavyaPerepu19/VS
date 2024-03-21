@@ -1,0 +1,58 @@
+-- Program to generate student result
+DECLARE
+ M1 NUMBER := &M1;
+ M2 NUMBER := &M2;
+ M3 NUMBER := &M3;
+ TOTAL NUMBER;
+ AVERAGE NUMBER;
+BEGIN
+ TOTAL := M1 + M2 + M3;
+ AVERAGE := TOTAL / 3;
+ DBMS_OUTPUT.PUT_LINE('Total Marks = ' || TOTAL);
+ DBMS_OUTPUT.PUT_LINE('Average Marks = ' || AVERAGE);
+END;
+/
+--------------------------------------
+-- Program to generate Electricity Bill
+DECLARE
+ PRES NUMBER := &PRES;
+ PREV NUMBER := &PREV;
+ NO_UNITS NUMBER;
+ UNIT_PRICE NUMBER := 3.25;
+ BILL_AMT NUMBER;
+BEGIN
+ NO_UNITS := PRES - PREV;
+ BILL_AMT := NO_UNITS * UNIT_PRICE;
+ DBMS_OUTPUT.PUT_LINE('No. of Units Consumed : ' || NO_UNITS);
+ DBMS_OUTPUT.PUT_LINE('Price(Per Unit) : ' || UNIT_PRICE);
+ DBMS_OUTPUT.PUT_LINE('Bill amount to be Paid : ' || BILL_AMT); 
+END;
+/
+------------------------------------------
+-- Program to generate Sales Bill(Discount = 20%)
+DECLARE
+ pur_amt number := &pur_amt;
+ discount number;
+ bill_amt number;
+begin
+ discount := pur_amt * 20 / 100;
+ bill_amt := pur_amt - discount;
+ dbms_output.put_line('You Purchased for Rs.' || PUR_AMT);
+ dbms_output.put_line('Your Discount is Rs.' || DISCOUNT);
+ dbms_output.put_line('You have to pay Rs.' || BILL_AMT);
+end;
+/
+=> Add 9% CGST and 9% SGST on bill amount and display the final bill
+-----------------------------------------------
+=> Write a program to generate Pay-Slip of an employee
+== Read basic salary 
+== Calculate D.A as 50% of basic
+== Calculate H.R.A as 30% of basic
+== Calculate Gross Salary as basic + D.A + H.R.A
+== Calculate P.F as 5% of basic
+== Calculate I.T as 10% of basic
+== Calculate Deductions as P.F + I.T
+== Calculate net salary to be paid Gross Salary - Deductions
+== Print all values
+---------------------------------------------------
+Control Structures in PL/SQL(See Figure) :

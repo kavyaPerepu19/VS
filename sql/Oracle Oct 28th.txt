@@ -1,0 +1,73 @@
+Triggers in ORACLE : A trigger is a PL/SQL block that executes automatically when an event occurs. The event may be an INSERT or DELETE or UPDATE operation. The syntax for creating a trigger is as follows :
+
+SQL > CREATE OR REPLACE TRIGGER trigger-name
+ BEFORE | AFTER
+ INSERT OR DELETE OR UPDATE [OF column] ON table-name
+ [FOR EACH ROW]
+BEGIN
+ PL/SQL Block;
+END;
+/
+
+-> In this syntax, if we want to run the trigger code before the implementation of DML operation,we use the keyword BEFORE. Then,it will be a BEFORE TRIGGER.
+
+-> If we want to run the trigger code after the implementation of DML operation,we use the keyword AFTER. Then,it will be an AFTER TRIGGER.
+
+-> IF we want to run the trigger on a particular column, the "OF column" option is used. Then, it is a column-level trigger. If this option is not used, then, it is a table-level trigger.
+
+-> If we want to run the trigger for each row to be processed, we use the clause FOR EACH ROW. Then, it will be row-level or statement-level trigger. If FOR EACH ROW is not used, the trigger will execute for all records to be processed. Then, it will be a block-level trigger.
+
+-> A trigger can be dropped using the following syntax :
+SQL > DROP TRIGGER trigger-name;
+===============================================
+Eg-1: Trigger code that restricts the users from withdrawing more than Rs. 10000
+
+=> Create a trigger as below:
+create or replace trigger max_withdraw_limit_exceeded
+before update of balance on account
+for each row
+begin
+ if :old.balance - :new.balance > 10000 then
+  raise_application_error(-20011,'Max. Withdraw Limit(Rs.10000) Exceeded.');
+ end if;
+end;
+/
+
+=> Try to perform the following operations on ACCOUNT table.
+SQL > UPDATE ACCOUNT SET BALANCE = BALANCE - 10000 WHERE ACC_ID = 204;
+SQL > UPDATE ACCOUNT SET BALANCE = BALANCE - 10001 WHERE ACC_ID = 201;
+-----------------------------------------------
+Eg-2 : Trigger code that restricts users from deleting records of LOAN table
+
+=> Create a trigger as below:
+create or replace trigger access_denied 
+before delete on loan
+for each row
+begin
+ raise_application_error(-20099,'You are not allowed to perform this operation');
+end;
+/
+
+=> Perform the following operations on LOAN table:
+SQL > INSERT INTO LOAN VALUES(311,'ED',60000,104);
+SQL > UPDATE LOAN SET LOAN_AMT = LOAN_AMT - 10000 WHERE LOAN_ID = 311;
+SQL > DELETE FROM LOAN WHERE LOAN_ID = 311;
+---------------------------------------------------
+Eg-3 : Trigger code that restricts users from creating or closing loan beyond business hours(10 AM to 5 PM)
+
+=> Create a trigger as below:
+create or replace trigger invalid_access_time
+before insert or delete on account
+for each row
+begin
+ if to_char(sysdate,'hh24') not between 10 and 16 then
+  raise_application_error(-20099,'You can perform these operations during business hours only');
+ end if;
+end;
+/
+
+=> Perform the following operations on ACCOUNT table.
+SQL > UPDATE ACCOUNT SET BALANCE = BALANCE + 5000 WHERE ACC_ID = 201;
+SQL > UPDATE ACCOUNT SET BALANCE = BALANCE - 5000 WHERE ACC_ID = 201;
+SQL > INSERT INTO ACCOUNT VALUES(211,'SB',30000,101);
+SQL > DELETE FROM ACCOUNT WHERE ACC_ID = 201;

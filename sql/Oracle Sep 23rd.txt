@@ -1,0 +1,74 @@
+ALTER TABLE command : This DDL command is used to modify the structure of an existing table. Its syntax is:
+SQL > ALTER TABLE table-name
+ ADD column-name datatype(size) |
+ MODIFY column-name datatype(size) |
+ DROP COLUMN column-name |
+ RENAME COLUMN old-name TO new-name |
+ RENAME TO new-table-name;
+Eg:
+=> Add a new column PHONE to CUSTOMER table.
+Eg:
+SQL > ALTER TABLE CUSTOMER
+ ADD PHONE NUMBER(8);
+SQL > DESC CUSTOMER;
+SQL > SELECT * FROM CUSTOMER;
+--------------------------------------
+UPDATE command : This command is used to modify the records of an existing table. Its syntax is:
+SQL > UPDATE table-name
+ SET expression
+ [WHERE condition];
+Eg:
+SQL > UPDATE CUSTOMER SET PHONE = 22334455;
+
+=> In this syntax, if WHERE clause is not used, every row will gets updated. If used, the rows that satisfy the given condition will be updated.
+Eg:
+SQL > UPDATE CUSTOMER SET PHONE = 22334433 WHERE CUST_ID = 102;
+SQL > UPDATE CUSTOMER SET PHONE = 22334434 WHERE CUST_ID = 103;
+SQL > UPDATE CUSTOMER SET PHONE = 22334435 WHERE CUST_ID = 104;
+...
+SQL > SELECT * FROM CUSTOMER;
+
+=> A customer has deposited an amount of Rs. 5000 in his account whose ID is 205.
+Update the record.
+SQL > UPDATE ACCOUNT SET BALANCE = BALANCE + 5000 WHERE ACC_ID = 205;
+
+=> A customer has withdrawn an amount of Rs. 2500 from his account whose ID is 208. Update the record.
+SQL > UPDATE ACCOUNT SET BALANCE = BALANCE - 2500 WHERE ACC_ID = 208;
+
+=> A customer has paid a loan instalment of Rs. 3500 to his account whose ID is 304. Update the record.
+SQL > UPDATE LOAN SET LOAN_AMT = LOAN_AMT - 3500 WHERE LOAN_ID = 304;
+
+=> Change the city name of CHENNAI from CUSTOMER table to BENGALURU.
+SQL > UPDATE CUSTOMER SET CUST_CITY='BENGALURU' WHERE CUST_CITY='CHENNAI';
+
+=> Assign the name SIRI to the customer whose ID is 103
+SQL > UPDATE CUSTOMER SET CUST_NAME='SIRI' WHERE CUST_ID = 103;
+
+=> The manager has decided to pay an interest of 10% on all Saving Accounts.
+SQL > UPDATE ACCOUNT SET BALANCE = BALANCE * 1.10 WHERE ACC_TYPE='SB';
+-----------------------------------------
+=> Change the column size of PHONE in CUSTOMER table to 10 digits
+SQL > ALTER TABLE CUSTOMER
+ MODIFY PHONE NUMBER(10);
+SQL > DESC CUSTOMER;
+-------------------------------------------
+=> Assign mobile numbers to all customers
+SQL > UPDATE CUSTOMER SET PHONE = 9886788990 WHERE CUST_ID = 101;
+SQL > UPDATE CUSTOMER SET PHONE = 9886788991 WHERE CUST_ID = 102;
+...
+SQL > SELECT * FROM CUSTOMER;
+-------------------------------------------
+=> Change the columns name PHONE to MOBILE in the CUSTOMER table.
+SQL > ALTER TABLE CUSTOMER 
+RENAME COLUMN PHONE TO MOBILE;
+
+SQL > DESC CUSTOMER;
+SQL > SELECT * FROM CUSTOMER;
+-------------------------------------------
+=> Remove the column MOBILE from CUSTOMER table
+SQL > ALTER TABLE CUSTOMER
+DROP COLUMN MOBILE;
+
+SQL > DESC CUSTOMER;
+SQL > SELECT * FROM CUSTOMER;
+-------------------------------------------

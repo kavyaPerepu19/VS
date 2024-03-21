@@ -1,0 +1,91 @@
+DELETE command : This DML command is used to delete the records of a given table. Its syntax is:
+SQL > DELETE FROM table-name
+[WHERE condition];
+
+=> In this syntax, if WHERE clause is not used, every row will be deleted. If used, the rows that satisfy the given condition will deleted.
+Eg:
+SQL > DELETE FROM CUSTOMER WHERE CUST_ID = 103;
+SQL > DELETE FROM ACCOUNT WHERE BALANCE >= 40000;
+SQL > DELETE FROM LOAN WHERE LOAN_TYPE='AG';
+
+SQL > SELECT * FROM CUSTOMER;
+SQL > DELETE FROM CUSTOMER;
+SQL > SELECT * FROM CUSTOMER;
+SQL > ROLLBACK;
+SQL > SELECT * FROM CUSTOMER;
+--------------------------------------
+TRUNCATE command : This truncate is used to delete all records of a given table. Its syntax is:
+SQL > TRUNCATE TABLE table-name;
+Eg:
+SQL > SELECT * FROM CUSTOMER;
+SQL > TRUNCATE TABLE CUSTOMER;
+SQL > SELECT * FROM CUSTOMER;
+SQL > ROLLBACK;
+SQL > SELECT * FROM CUSTOMER;
+--------------------------------------
+DROP TABLE command : This DDL command is used to delete the table structure along with data. Its syntax is:
+SQL > DROP TABLE table-name;
+Eg:
+SQL > DROP TABLE CUSTOMER;
+SQL > DROP TABLE ACCOUNT;
+SQL > DROP TABLE LOAN;
+SQL > SELECT * FROM TAB;
+--------------------------------------
+Creating table with constraints:
+SQL > CREATE TABLE table-name(
+ column-name datatype(size) [PRIMARY KEY] [UNIQUE] [NOT NULL] [DEFAULT default-value],  column-name datatype(size) [PRIMARY KEY] [UNIQUE] [NOT NULL] [DEFAULT default-value], 
+ ....
+ [,PRIMARY KEY(column-name(s))]
+ [,FOREIGN KEY(column-name) REFERENCES base-table(parent-column)]
+ [,CHECK(condition-1)]
+ [,CHECK(condition-2)]
+ ...);
+
+Table Structure:
+------------------------------------------------------------
+ table-name  column-name  datatype(size)   constraint,if any
+------------------------------------------------------------
+1. CUSTOMER  CUST_ID	  NUMBER(3)	   Primary Key, 101-199
+	     CUST_NAME    VARCHAR2(10)	   NOT NULL
+	     CUST_CITY    VARCHAR2(10)	   NOT NULL
+-------------------------------------------------------------
+2. ACCOUNT   ACC_ID	  NUMBER(3)	   Primary Key, 201-299
+	     ACC_TYPE     CHAR(2)	   NOT NULL, 'SB','CR','RD'
+	     BALANCE      NUMBER(7,2)	   NOT NULL, Min. 1000
+	     CUST_ID	  NUMBER(3)        Foreign key from CUSTOMER(CUST_ID)
+-------------------------------------------------------------
+3. LOAN	     LOAN_ID	  NUMBER(3)	   Primary Key, 301-399
+	     LOAN_TYPE	  CHAR(2)	   Not Null, 'ED','AG','PR'
+	     LOAN_AMT     NUMBER(7,2)	   Not Null
+	     CUST_ID	  NUMBER(3)        Foreign key from CUSTOMER(CUST_ID)
+-------------------------------------------------------------
+SQL > CREATE TABLE CUSTOMER(
+ CUST_ID NUMBER(3)  PRIMARY KEY,
+ CUST_NAME VARCHAR2(10) NOT NULL,
+ CUST_CITY VARCHAR2(10) NOT NULL,
+ CHECK(CUST_ID BETWEEN 101 AND 199));
+
+SQL > CREATE TABLE ACCOUNT(
+ ACC_ID NUMBER(3) PRIMARY KEY,
+ ACC_TYPE CHAR(2) NOT NULL,
+ BALANCE NUMBER(7,2) NOT NULL,
+ CUST_ID NUMBER(3) NOT NULL,
+ FOREIGN KEY(CUST_ID) REFERENCES CUSTOMER(CUST_ID),
+ CHECK(ACC_ID BETWEEN 201 AND 299),
+ CHECK(ACC_TYPE='SB' OR ACC_TYPE='CR' OR ACC_TYPE='RD'),
+ CHECK(BALANCE >= 1000));
+
+SQL > CREATE TABLE LOAN(
+ LOAN_ID NUMBER(3) PRIMARY KEY,
+ LOAN_TYPE CHAR(2) NOT NULL,
+ LOAN_AMT NUMBER(7,2) NOT NULL,
+ CUST_ID NUMBER(3) NOT NULL,
+ FOREIGN KEY(CUST_ID) REFERENCES CUSTOMER(CUST_ID),
+ CHECK(LOAN_ID BETWEEN 301 AND 399),
+ CHECK(LOAN_TYPE='ED' OR LOAN_TYPE='PR' OR LOAN_TYPE='AG'));
+
+=> Once the tables were created, you can enter data using any of the INSERT formats.
+SQL > SELECT * FROM CUSTOMER;
+SQL > SELECT * FROM ACCOUNT;
+SQL > SELECT * FROM LOAN;
+-------------------------------------------

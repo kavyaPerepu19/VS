@@ -1,0 +1,87 @@
+3) Joins : Combining the columns of two or more tables is called a "Join". If two relations R and S are combined using any relational operator Theta, it is called a Theta Join. If the Theta is an Equality operator,it is called an Equi-Join. Else, it is a non-Equi join. Eliminating the redundant columns in the Equi-Join will result in a natural join or inner join.
+
+-> If a table is combined to itself,it is a self-join.
+
+-> While combining the columns of two tables,if the rows of one table do not have matching values with the other, then those unmatched values are filled with NULLs. Then,it is an Outer Join. The three forms of Outer Join are : LEFT OUTER JOIN,RIGHT OUTER JOIN and FULL OUTER JOIN.
+Eg:
+=> List all customers who have accounts
+SQL > SELECT CUSTOMER.CUST_ID,CUSTOMER.CUST_NAME,CUSTOMER.CUST_CITY,
+ ACCOUNT.ACC_ID,ACCOUNT.ACC_TYPE,ACCOUNT.BALANCE,ACCOUNT.CUST_ID
+ FROM CUSTOMER,ACCOUNT
+ WHERE CUSTOMER.CUST_ID = ACCOUNT.CUST_ID; (Equi-Join)
+
+SQL > SELECT CUSTOMER.CUST_ID,CUSTOMER.CUST_NAME,CUSTOMER.CUST_CITY,
+ ACCOUNT.ACC_ID,ACCOUNT.ACC_TYPE,ACCOUNT.BALANCE
+ FROM CUSTOMER,ACCOUNT
+ WHERE CUSTOMER.CUST_ID = ACCOUNT.CUST_ID; (Natural Join)
+
+=> List all customers who have loans
+SQL > SELECT CUSTOMER.CUST_ID,CUSTOMER.CUST_NAME,CUSTOMER.CUST_CITY,
+ LOAN.LOAN_ID,LOAN.LOAN_TYPE,LOAN.LOAN_AMT
+ FROM CUSTOMER,LOAN
+ WHERE CUSTOMER.CUST_ID = LOAN.CUST_ID;
+
+=> List all customers who have both account and loan
+SQL > SELECT CUSTOMER.CUST_ID,CUSTOMER.CUST_NAME,CUSTOMER.CUST_CITY,
+ ACCOUNT.ACC_ID,ACCOUNT.ACC_TYPE,ACCOUNT.BALANCE,
+ LOAN.LOAN_ID,LOAN.LOAN_TYPE,LOAN.LOAN_AMT
+ FROM CUSTOMER,ACCOUNT,LOAN
+ WHERE CUSTOMER.CUST_ID=ACCOUNT.CUST_ID AND CUSTOMER.CUST_ID=LOAN.CUST_ID;
+----------------------------------
+=> List all customers who have accounts
+SQL > SELECT C.CUST_ID,C.CUST_NAME,C.CUST_CITY,
+ A.ACC_ID,A.ACC_TYPE,A.BALANCE
+ FROM CUSTOMER C,ACCOUNT A
+ WHERE C.CUST_ID = A.CUST_ID;
+
+=> List all customers who have loans
+SQL > SELECT C.CUST_ID,C.CUST_NAME,C.CUST_CITY,
+ L.LOAN_ID,L.LOAN_TYPE,L.LOAN_AMT
+ FROM CUSTOMER C,LOAN L
+ WHERE C.CUST_ID = L.CUST_ID;
+
+=> List all customers who have both account and loan
+=======================================
+=> List all customers who have accounts
+SQL > SELECT CUSTOMER.*,ACCOUNT.*
+ FROM CUSTOMER,ACCOUNT
+ WHERE CUSTOMER.CUST_ID = ACCOUNT.CUST_ID;
+
+=> List all customers who have loans
+SQL > SELECT CUSTOMER.*,LOAN.*
+ FROM CUSTOMER,LOAN
+ WHERE CUSTOMER.CUST_ID = LOAN.CUST_ID;
+
+=> List all customers who have both account and loan
+=======================================
+=> List all customers who have accounts
+SQL > SELECT C.*,A.*
+ FROM CUSTOMER C,ACCOUNT A
+ WHERE C.CUST_ID = A.CUST_ID;
+
+=> List all customers who have loans
+SQL > SELECT C.*,L.*
+ FROM CUSTOMER C,LOAN L
+ WHERE C.CUST_ID = L.CUST_ID;
+
+=> List all customers who have both account and loan
+=======================================
+=> List all customers who have accounts
+SQL > SELECT * FROM 
+ CUSTOMER,ACCOUNT
+ WHERE CUSTOMER.CUST_ID = ACCOUNT.CUST_ID;
+
+=> List all customers who have loans
+SQL > SELECT *
+ FROM CUSTOMER,LOAN
+ WHERE CUSTOMER.CUST_ID = LOAN.CUST_ID;
+
+=> List all customers who have both account and loan
+=======================================
+SQL > SELECT CUSTOMER.CUST_ID,CUST_NAME,CUST_CITY,ACC_ID,BALANCE
+ FROM CUSTOMER,ACCOUNT
+ WHERE CUSTOMER.CUST_ID = ACCOUNT.CUST_ID;
+
+SQL > SELECT CUSTOMER.CUST_ID,CUST_NAME,ACC_ID,BALANCE,LOAN_ID,LOAN_AMT
+ FROM CUSTOMER,ACCOUNT,LOAN
+ WHERE CUSTOMER.CUST_ID=ACCOUNT.CUST_ID AND CUSTOMER.CUST_ID=LOAN.CUST_ID;

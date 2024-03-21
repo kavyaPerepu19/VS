@@ -1,0 +1,112 @@
+Data:
+== structured data
+   == Database tables
+== semi-structured data
+   == XML data, JSON data, CSV files
+== unstructured data
+   == Maps, Graphics files ....
+--------------------------------------
+Databases:
+== SQL databases
+   == Used to maintain structured data
+   == Eg: Oracle, MySQL, SQLite, SQL Server, Sybase, ....
+== NoSQL(Not Only SQL) databases
+   == Used to maintain semi-structured and unstructured data
+   == Eg: Mongo DB, Hive, Cassandra ....
+--------------------------------------
+Oracle:
+== RDBMS(Relational DataBase Management Systems) Package
+== Developed by Relational Systems Inc(renamed to Oracle Corp), USA in early 1970's
+== First commercial RDBMS software
+
+Oracle Package
+== SQL
+   == Stands for Structured Query Language
+   == Non-Procedural db. language(What to do,but not how?)
+   == Database operations are implemented through a set of commands
+== PL/SQL
+   == Procedural Language for SQL
+   == Procedural db. language(What to do and also how?)
+   == Database operations are implemented through a set of programs
+== SQL *plus
+   == Console where SQL commands and PL/SQL programs are submitted
+--------------------------------------
+SQL:
+== Stands for Structured Query Language
+== Is a collection of several database languages like DDL, DML, DRL/DQL, DCL and TCL
+
+DDL:
+== Stands for Data Definition Language
+== Contains commands to process table structure
+== The commands include:
+=> CREATE : This command is used to create a new table
+=> ALTER : This command is used to modify table structure
+=> DESC[RIBE] : This command is used to display the structure of an existing table
+=> TRUNCATE : This command is used to delete all records of a given table
+=> DROP : This command is used to delete table structure and also data
+
+DML : 
+== Stands for Data Manipulation Language
+== Contains commands to process table data
+== The commands include:
+=> INSERT : This command is used to add a new record
+=> UPDATE : This command is used to modify an existing record
+=> DELETE : This command is used to delete an existing record
+---------------------------------------
+Differences TRUNCATE between and DELETE commands:
+=> TRUNCATE command deletes all records of a given table while DELETE command is used to delete selected records
+=> The records deleted using TRUNCATE command cannot be rolled back while the records deleted with DELETE command can be rolled back
+=> TRUNCATE command deletes the data page by page and hence faster while DELETE command deletes table data record by record and hence is slower.
+---------------------------------------
+DRL/DQL : Stands for Data Retrieval/Query Language. This language provides a command SELECT which is used to retreieve the records of a given table
+
+DCL(Data Control Language) : The commands of this language provide "Data Security". They include:
+== GRANT : This command provides privileges to access a table
+== REVOKE : This command cancel privileges from accessing a table
+
+TCL(Transaction Control Language) : The commands of this language provide "transaction security". They include:
+== COMMIT : This command is used to save the results of a transaction
+== ROLLBACK : This command is used to restart a failed transaction
+== SAVEPOINT : This command is used to save a transaction at regular intervals so that it can be rolled back from any point
+=========================================
+Datatypes in Oracle:
+
+1) Numeric Datatypes:
+a) NUMBER : 
+=> as Integer:
+Syntax:
+ column-name  NUMBER(n)  n => No. of digits
+Eg:
+ ROLLNO  NUMBER(3) => XXX => -999 to 999
+
+=> as Real:
+Syntax:
+ column-name  NUMBER(n,p)  p => precision
+Eg:
+ SALARY  NUMBER(7,2)  => XXXXX.XX
+
+b) NUMERIC,DECIMAL => same as NUMBER
+c) TINYINT(1),SMALLINT(2),INT(4),BIGINT(8)
+....
+---------------------------------------------
+2) Character or String datatypes:
+
+a) CHAR(8-bit ASCII) (or) NCHAR(16-bit UniCode)
+Syntax:
+ column-name  CHAR(n)  n => No. of characters
+Eg:
+ ST_NAME CHAR(30)
+
+(-)
+== This datatype create fixed-length strings
+
+b) VARCHAR2 (or) NVARCHAR2:
+Syntax:
+ column-name  VARCHAR2(n)  n => No. of characters
+Eg:
+ ST_NAME VARCHAR2(30)
+(+)
+== This datatype creates variable-length strings
+
+c) BINARY
+== Used to store bit streams

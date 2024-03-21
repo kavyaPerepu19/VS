@@ -1,0 +1,18 @@
+
+.h-wrapper,.comp1,.comp2,.comp3{
+    background: #223D3C;
+    color:white;
+    padding-left: 30px;
+    padding-right: 30px;
+} 
+.h-container{
+    justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color:#223D3C;
+
+}
+.h-menu{
+    gap: 2rem;
+    color:white
+}

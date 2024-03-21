@@ -1,0 +1,176 @@
+IF statement : Conditional branching statement
+
+a) Simple IF : Here, we consider the True part of a condition only and ignore the False part. Its syntax is:
+IF condition THEN
+ ====
+ ====
+END IF;
+Eg:
+/* Program on Simple-IF. Discount(20%) provided only when the purchase amount is Min. 5000 */
+
+DECLARE
+ pur_amt number := &pur_amt;
+ discount number := 0;
+ bill_amt number;
+begin
+ if pur_amt >= 5000 then
+   discount := pur_amt * 20 / 100;
+ end if;
+ bill_amt := pur_amt - discount;
+ dbms_output.put_line('You Purchased for Rs.' || PUR_AMT);
+ dbms_output.put_line('Your Discount is Rs.' || DISCOUNT);
+ dbms_output.put_line('You have to pay Rs.' || BILL_AMT);
+end;
+/
+======================================
+b) if-else: Here, we consider both the True and False parts of a condition. Its syntax is:
+IF condition THEN
+  ====
+ELSE
+  ====
+END IF;
+Eg:
+/* Program on if-else. If the purchase amount is Min. 5000, provide 20% discount. Otherwise, provide 5% */
+
+DECLARE
+ pur_amt number := &pur_amt;
+ discount number;
+ bill_amt number;
+begin
+ if pur_amt >= 5000 then
+   discount := pur_amt * 20 / 100;
+ else
+   discount := pur_amt * 5 / 100;
+ end if;
+ bill_amt := pur_amt - discount;
+ dbms_output.put_line('You Purchased for Rs.' || PUR_AMT);
+ dbms_output.put_line('Your Discount is Rs.' || DISCOUNT);
+ dbms_output.put_line('You have to pay Rs.' || BILL_AMT);
+end;
+/
+=> If the bill amount exceeds Rs.10000, add 9% CGST and SGST. Otherwise, add 2%
+=====================================
+=> Write a program to check whether the given number is Even or Odd
+=> Write a program to check whether a person is eligible for voting or not
+=> Elec. Bill:
+ no. of units < 100, unit price = 2.15
+ Otherwise, unit price = 3.25
+
+=> Write a program to read marks of 5 subjects of a student, calculate and print their total and average. Also, print whether the student is Pass or Fail(Pass marks = 35)
+--------------------------------------
+c) Nested IF : Defining a condition inside another is called Nested IF. Its syntax is:
+IF condition THEN
+  [IF..ELSE..END IF];
+ELSE
+  [IF..ELSE..END IF];
+END IF;
+Eg-1:
+-- Program on nested IF
+DECLARE
+ N NUMBER := &N;
+BEGIN
+ IF N > 0 THEN
+    DBMS_OUTPUT.PUT_LINE('The Entered Number is Positive');
+ ELSE
+    IF N < 0 THEN
+       DBMS_OUTPUT.PUT_LINE('The Entered Number is Negative');
+    ELSE
+       DBMS_OUTPUT.PUT_LINE('The Entered Number is Zero');
+    END IF;
+ END IF;
+END;
+/
+-----------------------------------
+Eg-2:
+-- Program on nested IF
+DECLARE
+ N NUMBER := &N;
+BEGIN
+ IF N > 0 THEN
+    DBMS_OUTPUT.PUT_LINE('The Entered Number is Positive');
+ ELSE IF N < 0 THEN
+    DBMS_OUTPUT.PUT_LINE('The Entered Number is Negative');
+ ELSE
+    DBMS_OUTPUT.PUT_LINE('The Entered Number is Zero');
+ END IF;
+ END IF;
+END;
+/
+----------------------------------------
+d) ELSE-IF ladder : Every time when a condition becomes False, one more condition will raise. Its syntax is:
+Syntax-1:
+IF condition-1 THEN
+ ====
+ELSE IF condition-2 THEN
+ ====
+...
+ELSE IF condition-n THEN
+ ====
+ELSE
+ ====
+END IF;
+END IF;
+...
+END IF;
+Eg:
+-- Program on else-if ladder. Program to print the biggest of 5 numbers
+declare
+ a number := &a;
+ b number := &b;
+ c number := &c;
+ d number := &d;
+ e number := &e;
+begin
+ if a>b and a>c and a>d and a>e then
+   dbms_output.put_line(a || ' is big');
+ else if b>c and b>d and b>e then
+   dbms_output.put_line(b || ' is big');
+ else if c>d and c>e then
+   dbms_output.put_line(c || ' is big');
+ else if d > e then
+   dbms_output.put_line(d || ' is big');
+ else
+   dbms_output.put_line(e || ' is big');
+ end if;
+ end if;
+ end if;
+ end if;
+end;
+/
+----------------------------------------
+Syntax-2:
+IF condition-1 THEN
+  ====
+ELSIF condition-2 THEN
+  ====
+ELSIF condition-3 THEN
+  ====
+...
+ELSIF condition-n THEN
+  ====
+ELSE
+  ====
+END IF;
+Eg:
+-- Program-2 on else-if ladder. Program to print the biggest of 5 numbers
+declare
+ a number := &a;
+ b number := &b;
+ c number := &c;
+ d number := &d;
+ e number := &e;
+begin
+ if a>b and a>c and a>d and a>e then
+   dbms_output.put_line(a || ' is big');
+ elsif b>c and b>d and b>e then
+   dbms_output.put_line(b || ' is big');
+ elsif c>d and c>e then
+   dbms_output.put_line(c || ' is big');
+ elsif d > e then
+   dbms_output.put_line(d || ' is big');
+ else
+   dbms_output.put_line(e || ' is big');
+ end if;
+end;
+/
+-------------------------------------------

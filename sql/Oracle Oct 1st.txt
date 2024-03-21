@@ -1,0 +1,90 @@
+ON DELETE CASCADE option : Deleting a primary key value, if we want to delete all its child occurences automatically, we use ON DELETE CASCADE option. 
+
+=> This option is used with foreign key declaration as below:
+FOREIGN KEY(column-name) REFERENCES base-table(column-name) ON DELETE CASCADE
+Eg:
+=> Create tables as below:
+SQL > CREATE TABLE DEPT(
+ DEPT_ID NUMBER(2) PRIMARY KEY,
+ DEPT_NAME CHAR(10),
+ LOCATION CHAR(10));
+
+SQL > CREATE TABLE EMPLOYEE(
+ EMP_ID NUMBER(3) PRIMARY KEY,
+ EMP_NAME CHAR(10),
+ SALARY NUMBER(7,2),
+ DEPT_ID NUMBER(2) REFERENCES DEPT(DEPT_ID) ON DELETE CASCADE);
+
+=> Insert records into the above table as below:
+SQL > INSERT INTO DEPT VALUES(10,'MARKETING','HYDERABAD');
+SQL > INSERT INTO DEPT VALUES(20,'FINANCING','AMARAVATHI');
+SQL > INSERT INTO DEPT VALUES(30,'HR','NELLORE');
+SQL > INSERT INTO DEPT VALUES(40,'PURCHASING','CHENNAI');
+
+SQL > INSERT INTO EMPLOYEE VALUES(101,'SURESH',35000.00,10);
+SQL > INSERT INTO EMPLOYEE VALUES(102,'RAMESH',75000.00,20);
+SQL > INSERT INTO EMPLOYEE VALUES(103,'MAHESH',30000.00,10);
+SQL > INSERT INTO EMPLOYEE VALUES(104,'GANESH',15000.00,30);
+
+SQL > SELECT * FROM DEPT;
+SQL > SELECT * FROM EMPLOYEE;
+
+=> Delete a record from parent table(DEPT) as below:
+SQL > DELETE FROM DEPT WHERE DEPT_ID = 10;
+
+=> To check whether the parent and corresponding child records deleted or not, type:
+SQL > SELECT * FROM DEPT;
+SQL > SELECT * FROM EMPLOYEE;
+=========================================
+Sequences :
+=> To assign values for primary keys of a table, Oracle introduced an object, called sequences
+Syntax:
+SQL > CREATE SEQUENCE sequence-name
+ INCREMENT BY value
+ START WITH initial-value
+ MINVALUE value | NOMINVALUE
+ MAXVALUE value | NOMAXVALUE
+ CACHE value | NOCACHE
+ CYCLE | NOCYCLE;
+Eg:
+=> Create a table as below:
+SQL > CREATE TABLE TRAIN(
+ TRAIN_NO NUMBER(4),
+ TR_NAME VARCHAR2(20),
+ SRC VARCHAR2(10),
+ DEST VARCHAR2(10));
+
+=> Create a sequence as below:
+
+SQL > CREATE SEQUENCE TRAIN_SEQ
+ INCREMENT BY 1
+ START WITH 1001
+ MINVALUE 1001
+ MAXVALUE 1999
+ CACHE 5
+ NOCYCLE;
+
+=> Now, insert records into TRAIN table as below:
+SQL > INSERT INTO TRAIN VALUES(TRAIN_SEQ.NEXTVAL,'&TR_NAME','&SRC','&DEST');
+SQL > /
+...
+SQL> SELECT * FROM TRAIN;
+
+=> If we want to see the last generated sequence value, type:
+SQL > SELECT TRAIN_SEQ.CURRVAL FROM DUAL;
+
+=> If we want to modify the sequence declaration, type:
+SQL > ALTER SEQUENCE sequence-name
+ INCREMENT BY value
+ START WITH initial-value
+ MINVALUE value | NOMINVALUE
+ MAXVALUE value | NOMAXVALUE
+ CACHE value | NOCACHE
+ CYCLE | NOCYCLE;
+
+=> To drop a sequence, type:
+SQL > DROP SEQUENCE sequence-name;
+
+=> To see the list of sequences available under current user, type:
+SQL > SELECT * FROM USER_SEQUENCES;
+--------------------------------------

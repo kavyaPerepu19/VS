@@ -1,0 +1,95 @@
+2) Numeric or Mathematical functions : 
+
+=> abs(n) : This function returns absolute value of a given number
+Eg:
+SQL > SELECT ABS(-10) FROM DUAL;
+SQL > SELECT ABS(10) FROM DUAL;
+SQL > SELECT ABS(-10),ABS(10),ABS(-12.5) FROM DUAL;
+
+=> MOD(m,n) : This function returns m mod n value
+Eg:
+SQL > SELECT MOD(10,3),MOD(10,2),MOD(10,3.5) FROM DUAL;
+
+=> SQRT() : This function returns square root of a given number
+Eg:
+SQL > SELECT SQRT(10),SQRT(6.25),SQRT(0) FROM DUAL;
+SQL > SELECT SQRT(-1) FROM DUAL;
+
+=> POWER(m,n) : This function returns m power n(mⁿ) value
+Eg:
+SQL > SELECT POWER(10,3), POWER(10,-3), POWER(-10,3), POWER(-10,-3) FROM DUAL;
+
+=> EXP(n) : This function returns eⁿ value
+Eg:
+SQL > SELECT EXP(1), EXP(2) FROM DUAL;
+
+=> SIN() : This function returns SINE value of a given number
+=> COS() : This function returns COSINE value of a given number
+=> TAN() : This function returns TANGENT value of a given number
+Eg:
+SQL > SELECT SIN(0),COS(0),TAN(0) FROM DUAL;
+
+=> ROUND(n,p) : This function rounds off the given value to its nearest integer or 'p' digits of precision. 
+Eg:
+SQL > SELECT ROUND(10.1), ROUND(10.9), ROUND(10.5) FROM DUAL;
+SQL > SELECT ROUND(10.2345,2), ROUND(10.2365,2) FROM DUAL;
+
+=> TRUNC(n,p) : This function trunactes the given value to 0 or given digits of precision
+SQL > SELECT TRUNC(10.1),TRUNC(10.9) FROM DUAL;
+SQL > SELECT TRUNC(10.2345,2), TRUNC(10.2365,2) FROM DUAL;
+
+=> CEIL(n) : This function returns the next immediate integer value
+Eg:
+SQL > SELECT CEIL(10.1), CEIL(10.9), CEIL(-10.1) FROM DUAL;
+
+=> FLOOR(n) : This function returns the previous immediate value
+Eg:
+SQL > SELECT FLOOR(10.1), FLOOR(10.9), FLOOR(-10.1) FROM DUAL;
+-------------------------------------
+3) String funtions : 
+
+=> LENGTH(s) : This function returns length of a given number
+Eg:
+SQL > SELECT LENGTH('HELLO'), LENGTH('HELLO WORLD') FROM DUAL;
+
+=> UPPER(s) : This function converts the given string into uppercase
+Eg:
+SQL > SELECT UPPER('welcome') FROM DUAL;
+
+=> LOWER(s) : This function converts the given string into lowercase
+Eg:
+SQL > SELECT LOWER('WELCOME') FROM DUAL;
+
+=> LTRIM(s) : This function removes the leading spaces of a given string
+Eg:
+SQL > SELECT LTRIM('    HELLO    WORLD    ') FROM DUAL;
+
+=> RTRIM(s) : This function removes the trailing spaces of a given string
+Eg:
+SQL > SELECT RTRIM('    HELLO    WORLD    ') FROM DUAL;
+
+=> TRIM(s) : This function removes both the leading and trailing spaces of a given string
+Eg:
+SQL > SELECT TRIM('    HELLO    WORLD    ') FROM DUAL;
+
+=> REVERSE(s) : This function reverses the given string
+Eg:
+SQL > SELECT REVERSE('HELLO'),REVERSE('MADAM') FROM DUAL;
+
+=> REPLACE(str,src,trg) : This function replaces every occurence of 'src' string with the 'trg' string in the given string
+SQL > SELECT REPLACE('WELCOME','E','A') FROM DUAL;
+
+=> CONCAT(s1,s2) : This function concatenates the two given strings
+SQL > SELECT CONCAT('HELLO','WORLD') FROM DUAL;
+
+=> INSTR(s,ch) : This function returns the position of first occurence of a sub string in a given string
+Eg:
+SQL > SELECT INSTR('WELCOME','E') FROM DUAL;
+SQL > SELECT INSTR('WELCOME','E',4) FROM DUAL;
+SQL > SELECT INSTR('WELCOME','A') FROM DUAL;
+
+=> SUBSTR() : This function returns the sub-string from a given string
+Eg:
+SQL > SELECT SUBSTR('HELLO WORLD',4) FROM DUAL;
+SQL > SELECT SUBSTR('HELLO WORLD',4,5) FROM DUAL;
+---------------------------------------------

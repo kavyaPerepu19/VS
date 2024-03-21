@@ -1,0 +1,116 @@
+Views in ORACLE :
+
+-> Views are logical tables created from existing tables. Different users will have different data requirements on a database. Depending on their requirements, the data are created as views and assigned to them. 
+
+-> A view is not a physical table, but a mirror image. All the operations that are performed on a view will reflect the base table. But, dropping a view does not drop the base table.
+
+-> We can perform all the operations on a view except ALTER. The syntax for creating a view is as follows :
+SQL > CREATE VIEW view-name AS SELECT statement;
+
+-> To see the structure of a view :
+SQL > DESC view-name;
+
+-> To see the records of a view : 
+SQL > SELECT * FROM view-name;
+
+-> Inserting records into a view : (Any of the 3 INSERT formats can be used)
+
+-> Updating a view :
+SQL > UPDATE view-name SET expression [WHERE condition];
+
+-> Deleting the records from a view : 
+SQL > DELETE FROM view-name [WHERE condition];
+
+-> Dropping a view :
+SQL > DROP VIEW view-name;
+Eg:
+=> Create a view containing Savings Account data as below:
+SQL > CREATE VIEW SB_VIEW AS
+ SELECT * FROM ACCOUNT WHERE ACC_TYPE = 'SB';
+SQL > DESC SB_VIEW;
+SQL > SELECT * FROM SB_VIEW;
+
+=> Insert a record into a view as below:
+SQL > INSERT INTO ACCOUNT VALUES(211,'SB',29000,103);
+SQL > SELECT * FROM SB_VIEW;
+SQL > SELECT * FROM ACCOUNT;
+
+=> Update records of the view as below:
+SQL > UPDATE SB_VIEW SET BALANCE = BALANCE + 3000 WHERE ACC_ID = 211;
+SQL > SELECT * FROM SB_VIEW;
+SQL > SELECT * FROM ACCOUNT;
+
+=> Deleting records of the view:
+SQL > DELETE FROM SB_VIEW WHERE ACC_ID = 211;
+SQL > SELECT * FROM SB_VIEW;
+SQL > SELECT * FROM ACCOUNT;
+
+=> Try to alter a view as below:
+SQL > ALTER VIEW SB_VIEW DROP COLUMN BALANCE;
+
+=> Drop a view as below:
+SQL > DROP VIEW SB_VIEW;
+SQL > SELECT * FROM SB_VIEW;
+SQL > SELECT * FROM ACCOUNT;
+--------------------------------------------
+DCL commands in ORACLE : DCL stands for Data Control Language. The commands of this language provide data security. They include : GRANT and REVOKE.
+
+GRANT command : This command provides privileges(permissions) to access a database. Its syntax is :
+SQL > GRANT  {ALL | privilege-list}
+ ON table-name
+ TO {user | PUBLIC}
+ [WITH GRANT OPTION];
+
+-> The privileges can be CREATE,ALTER,SELECT,INSERT,UPDATE,DELETE etc. If we want to provide privileges to a specific user, we specify the user name. If we want to provide privileges for all users, use the keyword PUBLIC.
+
+-> If we want to make the user forward privileges assigned to him,we use WITH GRANT OPTION.
+
+REVOKE command : This command cancels permissions from accessing the database. Its syntax is :
+SQL > REVOKE {ALL | privilege-list}
+ ON table-name
+ FROM {user | PUBLIC}
+ FORCE;
+----------------------------------------
+Eg:
+=> Connect to user SYSTEM and create the following users:
+SQL > CREATE USER USER1 IDENTIFIED BY USER1;
+SQL > CREATE USER USER2 IDENTIFIED BY USER2;
+SQL > CREATE USER USER3 IDENTIFIED BY USER3;
+
+SQL > GRANT CONNECT,RESOURCE TO USER1;
+SQL > GRANT CONNECT,RESOURCE TO USER2;
+SQL > GRANT CONNECT,RESOURCE TO USER3;
+
+Implementing GRANT command:
+=> Connect to your account. Assign SELECT privilege on CUSTOMER to all users
+SQL > GRANT SELECT ON CUSTOMER TO PUBLIC;
+
+=> Connect to any user and type the following command:
+SQL > SELECT * FROM APEC.CUSTOMER;
+SQL > DELETE FROM APEC.CUSTOMER;
+
+=> Connect to your account. Assign INSERT,UPDATE privileges on ACCOUNT table to USER1
+SQL > GRANT INSERT,UPDATE ON ACCOUNT TO USER1;
+
+=> Connect to USER1 and perform the following operations:
+SQL > INSERT INTO APEC.ACCOUNT VALUES(211,'CR',33000,105);
+SQL > UPDATE APEC.ACCOUNT SET BALANCE = BALANCE + 5000 WHERE ACC_ID = 211;
+SQL > DELETE FROM APEC.ACCOUNT;
+SQL > SELECT * FROM APEC.ACCOUNT;
+
+=> Connect to your account. Assign all privileges on LOAN table to USER2. If required, they can be forwarded to other users
+SQL > GRANT ALL ON LOAN TO USER2 WITH GRANT OPTION;
+
+=> Connect to USER2 and perform the following operations.
+SQL > SELECT * FROM APEC.LOAN;
+SQL > INSERT INTO APEC.LOAN VALUES(311,'ED',60000,104);
+SQL > DELETE FROM APEC.LOAN WHERE LOAN_ID = 311;
+
+=> Forward SELECT privilege on APEC.LOAN to USER3
+SQL > GRANT SELECT ON APEC.LOAN TO USER3;
+
+=> Connect to USER3 and perform the following operations.
+SQL > SELECT * FROM APEC.LOAN;
+SQL > INSERT INTO APEC.LOAN VALUES(311,'ED',60000,104);
+SQL > DELETE FROM APEC.LOAN WHERE LOAN_ID = 311;
+------------------------------------------

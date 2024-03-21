@@ -1,0 +1,113 @@
+SQL Operators :
+1) Arithmetic Operators :
+ + => addition
+ - => Subtraction
+ * => Multiplication
+ / => Division(Real)	Eg:  8 / 5 => 1.6
+ MOD() => Remainder
+Eg:
+ MOD(10,3) => 1
+
+2) Relational(Comparision) Operators :
+ =  => Equality 
+ <> => Inequality  
+ >  => Greater than
+ >= => Greater Than or Equals to
+ <  => Less than
+ <= => Less Than or Equals to
+
+3) Logical or Boolean : AND, OR, NOT
+
+4) Assignment Operator (:=) 
+Eg: 
+a := 10;  // value assignment
+b := a; // variable assignment
+c := a + b; // expression assignment
+
+5) Set Operators : UNION [ALL], INTERSECT, MINUS
+
+6) Special :
+-> Concatenation : ||
+-> [NOT] BETWEEN
+-> [NOT] IN
+-> IS [NOT] NULL
+-> [NOT] LIKE .....
+=========================================================
+SELECT statement : This DRL/DQL command is used to retrieve the records of a given table. Its syntax is :
+SQL > SELECT [ALL|DISTINCT] *|column-list
+ FROM table-name(s)
+ [WHERE condition]
+ [ORDER BY column-name(s)]
+ [GROUP BY column-name]
+ [HAVING condition];
+
+-> In this syntax, the SELECT keyword is used to specify the columns whose values are to be retrieved. If we want to retrieve values for all columns of the table and in the same order they exist,use the symbol '*'. If we want to retrieve selected columns of a table or columns in random order,specify the column-list.
+
+-> While selecting a column,it may have duplicates. To include duplicates,use the keyword 'ALL'. To eliminate duplicates,use the keyword DISTINCT. The default is ALL.
+
+-> If we want to retrieve data in sorted order,use ORDER BY clause.
+
+-> The GROUP BY clause is combined with aggregate functions to generate summarised data. If this selection requires any condition, HAVING clause is used.
+
+Eg:
+=> List the details of all customers
+SQL > SELECT CUST_ID,CUST_NAME,CUST_CITY 
+ FROM CUSTOMER; (OR)
+SQL > SELECT * FROM CUSTOMER;
+
+=> List the details of all accounts
+SQL > SELECT ACC_ID,ACC_TYPE,BALANCE,CUST_ID
+ FROM ACCOUNT; (OR)
+SQL > SELECT * FROM ACCOUNT;
+
+=> List the details of all loans
+
+=> List the names and cities of all customers
+SQL > SELECT CUST_NAME,CUST_CITY FROM CUSTOMER;
+
+=> List all account numbers and their corresponding balances
+SQL > SELECT ACC_ID,BALANCE FROM ACCOUNT;
+
+=> List all loan numbers and their types
+SQL > SELECT LOAN_ID,LOAN_TYPE FROM LOAN;
+
+=> List the names of various cities from which customers exist
+SQL > SELECT CUST_CITY FROM CUSTOMER;
+SQL > SELECT DISTINCT CUST_CITY FROM CUSTOMER;
+SQL > SELECT DISTINCT ACC_TYPE FROM ACCOUNT;
+SQL > SELECT DISTINCT LOAN_TYPE FROM LOAN;
+
+=> List the details of a customer whose ID is 105
+SQL > SELECT * FROM CUSTOMER WHERE CUST_ID = 105;
+
+=> List the details of all saving accounts
+SQL > SELECT * FROM ACCOUNT WHERE ACC_TYPE='SB';
+
+=> List the details of all agricultural loans
+SQL > SELECT * FROM LOAN WHERE LOAN_TYPE='AG';
+
+=> List the names of all customers who are from CHENNAI
+SQL > SELECT CUST_NAME FROM CUSTOMER WHERE CUST_CITY='CHENNAI';
+
+=> List the details of all accounts whose balance is Min. 35000
+SQL > SELECT * FROM ACCOUNT WHERE BALANCE >= 35000;
+
+=> List the details of all loans whose amount is below 75000
+SQL > SELECT * FROM LOAN WHERE LOAN_AMT < 75000;
+
+=> List the details of a customer whose name is RAMESH and is from AMARAVATHI
+SQL > SELECT * FROM CUSTOMER WHERE CUST_NAME='RAMESH' AND CUST_CITY='AMARAVATHI';
+
+=> List the details of all current accounts whose balance exceed 40000
+SQL > SELECT * FROM ACCOUNT WHERE ACC_TYPE='CR' AND BALANCE > 40000;
+
+=> List the details of all educational and personal loans
+SQL > SELECT * FROM LOAN WHERE LOAN_TYPE='ED' OR LOAN_TYPE='PR';
+
+=> List the details of all customers who are not from HYDERABAD
+SQL > SELECT * FROM CUSTOMER WHERE CUST_CITY <> 'HYDERABAD';
+SQL > SELECT * FROM CUSTOMER WHERE NOT CUST_CITY = 'HYDERABAD';
+
+=> List all accounts whose balance do not exceed 30000.
+SQL > SELECT * FROM ACCOUNT WHERE BALANCE <= 30000;
+SQL > SELECT * FROM ACCOUNT WHERE NOT BALANCE > 30000;
